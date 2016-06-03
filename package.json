@@ -1,0 +1,39 @@
+{
+  "name": "editor",
+  "version": "0.0.1-alpha",
+  "description": "Markdown Editor",
+  "main": "index.js",
+  "scripts": {
+    "start": "node_modules/.bin/electron .",
+    "build": "node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chatbox-inc/esa.git"
+  },
+  "author": "Potato4d (Hanatani Takuma)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chatbox-inc/esa/issues"
+  },
+  "homepage": "https://github.com/chatbox-inc/esa#readme",
+  "devDependencies": {
+    "browser-sync": "^2.12.10",
+    "electron-connect": "^0.4.2",
+    "electron-packager": "^7.0.3",
+    "electron-prebuilt": "^1.2.1",
+    "gulp": "^3.9.1",
+    "gulp-jade": "^1.1.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-pleeease": "^2.0.2",
+    "gulp-plumber": "^1.1.0",
+    "gulp-pug": "^3.0.3",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.1",
+    "gulp-sass-bulk-import": "^1.0.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3",
+    "gulp-watch": "^4.3.6",
+    "jquery": "^2.2.4"
+  }
+}

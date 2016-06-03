@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="res/css/style.css">
+	<title>Markdown Editor</title>
+</head>
+<body>
+
+<nav class="navigation">
+	<ul class="navigation-list">
+		
+		<li class="navigation-content new-file">
+			<img src="res/images/icon_editor.png">
+		</li>
+
+		<li class="navigation-content active file-list">
+			<img src="res/images/icon_folder.png">
+		</li>
+		
+		<li class="navigation-content settings">
+			<img src="res/images/icon_settings.png">
+		</li>
+	</ul>
+</nav>
+
+<article class="mainpage">
+
+	<div class="filetree">
+		<header class="filetree-header">
+			<input type="text" name="search" placeholder="Search File..." class="filetree-search">
+		</header>
+
+		<ol class="filetree-list">
+			<li class="filetree-list-content filetree-list-content-is-unsaved">
+				<b>file.md</b>
+				
+				<p>
+					要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約
+				</p>
+			</li>
+
+			<li class="filetree-list-content active">
+				<b>file.md</b>
+				
+				<p>
+					要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約
+				</p>
+			</li>
+
+			<li class="filetree-list-content">
+				<b>file.md</b>
+				
+				<p>
+					要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約
+				</p>
+			</li>
+		</ol>
+	</div>
+
+	<section class="mainpage-editor">
+		<h1>Editor</h1>
+
+		<div>
+<textarea placeholder="Type here...." class="mainpage-editor-textarea"># Title
+
+paragraph paragraph paragraph paragraph paragraph 
+aaaaa</textarea>
+		</div>
+	</section>
+
+	<section class="mainpage-preview">
+		<h1>Preview</h1>
+	</section>
+</article>
+
+<script src="res/js/main.js"></script>
+<script>require('electron-connect').client.create()</script> 
+</body>
+</html>
