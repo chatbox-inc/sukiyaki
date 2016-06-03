@@ -148,6 +148,12 @@ $( _=> {
 		}
 	});
 
+	$(document).on('click', '.button-file-list', function(event) {
+		event.preventDefault();
+		$('.filetree').toggle();
+		$('.editor-main').toggleClass('editor-main-is-full');
+	});
+
 	$(document).on('click', '.button-settings', function(event) {
 		event.preventDefault();
 		$(".editor").css("display", "none");

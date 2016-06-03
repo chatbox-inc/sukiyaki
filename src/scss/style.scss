@@ -179,6 +179,10 @@ h1,h2,h3,h4,h5,h6{
 			height: 100%;
 			display: flex;
 
+			&.editor-main-is-full{
+				width: 100%;
+			}
+
 			.editor-toggle-preview{
 				position: absolute;
 				right: 30px;
