@@ -24,12 +24,12 @@ var dir = {
 gulp.task("js", function (){
 	gulp.src(dir.build_base + dir.source + "/js/*.js")
 		.pipe(plumber())
-		.pipe(gulp.dest(dir.build_base + dir.dest + "/js"))
-		.pipe(uglify())
-		.pipe(rename({
-			extname: ".min.js"
-		}))
-		.pipe(gulp.dest(dir.build_base + dir.dest + "/js"))
+		.pipe(gulp.dest(dir.build_base + dir.dest + "/js"));
+		// .pipe(uglify())
+		// .pipe(rename({
+		// 	extname: ".min.js"
+		// }))
+		// .pipe(gulp.dest(dir.build_base + dir.dest + "/js"))
 })
 
 gulp.task("sass", function(){
@@ -47,14 +47,14 @@ gulp.task("sass", function(){
 			minifier: false
 		}))
 		.pipe(sourcemaps.write())
-		.pipe(gulp.dest(dir.build_base + dir.dest+"/css"))
-		.pipe(pleeease({
-			minifier: true
-		}))
-		.pipe(rename({
-			extname: '.min.css'
-		}))
 		.pipe(gulp.dest(dir.build_base + dir.dest+"/css"));
+		// .pipe(pleeease({
+		// 	minifier: true
+		// }))
+		// .pipe(rename({
+		// 	extname: '.min.css'
+		// }))
+		// .pipe(gulp.dest(dir.build_base + dir.dest+"/css"));
 });
 
 gulp.task("build", ["js", "sass"]);

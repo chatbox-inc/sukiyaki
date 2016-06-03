@@ -3,22 +3,24 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="res/css/style.css">
-	<title>Markdown Editor</title>
+	<link rel="stylesheet" type="text/css" href="res/css/github-markdown.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<title>Markdown Editor - file2.md</title>
 </head>
 <body>
 
 <nav class="navigation">
 	<ul class="navigation-list">
 		
-		<li class="navigation-content new-file">
+		<li class="navigation-content button-new-file">
 			<img src="res/images/icon_editor.png">
 		</li>
 
-		<li class="navigation-content active file-list">
+		<li class="navigation-content active button-file-list">
 			<img src="res/images/icon_folder.png">
 		</li>
 		
-		<li class="navigation-content settings">
+		<li class="navigation-content button-settings">
 			<img src="res/images/icon_settings.png">
 		</li>
 	</ul>
@@ -26,52 +28,64 @@
 
 <article class="mainpage">
 
-	<div class="filetree">
-		<header class="filetree-header">
-			<input type="text" name="search" placeholder="Search File..." class="filetree-search">
-		</header>
+	<div class="editor">
+		<div class="filetree">
+			<header class="filetree-header">
+				<input type="text" name="search" placeholder="Search File..." class="filetree-search">
+			</header>
 
-		<ol class="filetree-list">
-			<li class="filetree-list-content filetree-list-content-is-unsaved">
-				<b>file.md</b>
-				
-				<p>
-					要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約
-				</p>
-			</li>
+			<ol class="filetree-list">
+				<li class="filetree-list-content">
+					<b>file1.md</b>
+					
+					<p class="filetree-list-content-body">
+						要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約
+					</p>
+				</li>
 
-			<li class="filetree-list-content active">
-				<b>file.md</b>
-				
-				<p>
-					要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約
-				</p>
-			</li>
+				<li class="filetree-list-content active filetree-list-content-is-unsaved">
+					<b>file2.md</b>
+					
+					<p class="filetree-list-content-body">
+						要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約
+					</p>
+				</li>
 
-			<li class="filetree-list-content">
-				<b>file.md</b>
-				
-				<p>
-					要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約
-				</p>
-			</li>
-		</ol>
-	</div>
+				<li class="filetree-list-content">
+					<b>file3.md</b>
+					
+					<p class="filetree-list-content-body">
+						要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約
+					</p>
+				</li>
+			</ol>
+		</div>
 
-	<section class="mainpage-editor">
-		<h1>Editor</h1>
+		<div class="editor-main">
+			<section class="editor-edit">
+				<div class="editor-content-wrapper">
+					<h1 class="file-title">今すぐ◯◯を捨てるべき△の理由</h1>
 
-		<div>
-<textarea placeholder="Type here...." class="mainpage-editor-textarea"># Title
+<textarea placeholder="Type here...." class="editor-textarea"># 今すぐ◯◯を捨てるべき△の理由
 
 paragraph paragraph paragraph paragraph paragraph 
-aaaaa</textarea>
-		</div>
-	</section>
+aaaaa</textarea>	
+				</div>
+			</section>
 
-	<section class="mainpage-preview">
-		<h1>Preview</h1>
-	</section>
+			<section class="editor-preview">
+				<div class="editor-content-wrapper markdown-body">
+					<h1>Preview</h1>
+				</div>
+			</section>
+
+			<a href="#" class="editor-toggle-preview" title="プレビューの表示を切り替えます。"><i class="fa fa-fw fa-eye"></i></a>
+		</div>
+	</div>
+
+	<div class="settings">
+		<h1>Settings</h1>
+	</div>
 </article>
 
 <script src="res/js/main.js"></script>
