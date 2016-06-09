@@ -8,8 +8,11 @@ const remote = require('electron').remote;
 const dialog = remote.dialog;
 const browserWindow = remote.BrowserWindow;
 
-var isCreatedNewFile = false;
-var currentPath = "";
+var currentFile = {
+	name: "",
+	title: "",
+	content: ""
+};
 var files = [];
 
 var fileTree = new Vue({
@@ -17,6 +20,11 @@ var fileTree = new Vue({
 	data : {
 		files : files
 	}
+});
+
+var editor = new Vue({
+	el: ".editor-edit",
+	data : currentFile
 });
 
 marked.setOptions({
@@ -29,6 +37,12 @@ marked.setOptions({
 	smartLists: true,
 	smartypants: false
 });
+
+function doLivePreview(title, text){
+	$(".file-title").text(title);
+	var md = marked(text);
+	$(".editor-preview .preview-content").html(md);
+}
 
 $( _=> {
 
@@ -48,15 +62,49 @@ $( _=> {
 
 	    		files.push({
 	    			name   : file,
-	    			content: nl2br(text, false),
-	    			active : false
+	    			content: text,
+	    			active : false,
 	    		});
 			});
 		});
 	});
 
+	function openFile(name){
+		var target = files.map( (file) => {
+				file.active = (file.name == name);
+				return file;
+			})
+			.find( (file) => {
+				return file.name == name;
+			});
+
+		var text    = target.content.replace(/\r\n|\r/g, "\n");
+		var raw_content = text.split("\n");
+		var title   = raw_content[0].replace("# ", "");
+		var content = "";
+
+		raw_content.shift();
+
+		raw_content.forEach( (line) => {
+			content += line + "\n";
+		});
+
+		currentFile.name = target.name;
+		currentFile.title = title;
+		currentFile.content = content;
+
+		doLivePreview(
+			title,
+			content
+		);
+	}
+
 	function newFile(){
-		if(! isCreatedNewFile){
+		if( files.find((file) =>{ return file.name == ""; }) === undefined){
+			_.map(files, (file) => {
+				file.active = false;
+				return file;
+			});
 			files.unshift({
 				name   : "",
 				content: "",
@@ -67,13 +115,13 @@ $( _=> {
 	}
 
 	function save(){
-		if (currentPath == "") {
+		if (currentFile.name == "") {
 			saveNewFile();
 			return;
 		}
 		
-		var data = $(".editor-textarea").val();
-		writeFile(currentPath, data);
+		var data = "# " + $(".file-title").text() + "\n" + $(".editor-textarea").val();
+		writeFile("./"+currentFile.name, data);
 	};
 
 	function saveNewFile() {
@@ -93,7 +141,13 @@ $( _=> {
 
 			function (fileName) {
 				if (fileName) {
-					var data = $(".editor-textarea").val();
+					var target = files.find( (file) => {
+						return file.name == "";
+					});
+					target.name = fileName;
+					currentFile.name = fileName;
+
+					var data = $(".file-title") + "\n" + $(".editor-textarea").val();
 					currentPath = fileName;
 					writeFile(currentPath, data);
 				}
@@ -114,35 +168,27 @@ $( _=> {
 		});
 	}
 
-	$(document).on('click', '.filetree-list-content', function(event) {
-		event.preventDefault();
-		_.map(files, (file) => {
-			file.active  = (file.name == $(this).children('.filetree-list-content-filename').text());
-			return file;
-		});
-	});
 
 	$(document).on('click', '.button-new-file', function(event) {
 		event.preventDefault();
 		newFile();
 	});
 
+	$(document).on('click', '.filetree-list-content', function(event) {
+		event.preventDefault();
+		openFile($(this).children('.filetree-list-content-filename').text());
+	});
+
 	$(document).on('click', '.editor-toggle-preview', function(event) {
 		event.preventDefault();
 		$(this).children('.fa').toggleClass('fa-eye').toggleClass('fa-eye-slash');
-		if($(".editor-toggle-preview").attr("data-is-active") == "1"){
-			$('.editor-preview').css({
-				width:"50%",
-				flexGrow:"1"
-			});
-			$(".editor-toggle-preview").attr("data-is-active", "0");
-		}else{
-			$('.editor-preview').css({
-				width:"0%",
-				flexGrow:"0"
-			});
-			$(".editor-toggle-preview").attr("data-is-active", "1");
-		}
+
+		$('.editor-preview')
+		.toggleClass('editor-preview-hide')
+		.attr(
+			"data-is-active",
+			($(".editor-toggle-preview").attr("data-is-active") == "1") ? "0" : "1"
+		);
 	});
 
 	$(document).on('click', '.button-file-list', function(event) {
@@ -167,8 +213,8 @@ $( _=> {
 		$('.button-settings').toggleClass('active');
 	});
 
+	// Tab Key
 	$(".editor-textarea").keydown(function(event){
-		// Tab
     	if (event.keyCode === 9) {
         	event.preventDefault();
         	var element = event.target;
@@ -179,12 +225,12 @@ $( _=> {
     	}
 	});
 
-	$('.editor-textarea').on('blur keyup', function(event) {
-		// event.preventDefault();
-		$(".file-title").text($(".file-title-input").val());
 
-		var md = marked($(this).val());
-		$(".editor-preview .preview-content").html(md);
+	$('.editor-textarea').on('blur keyup', function(event) {
+		doLivePreview(
+			$(".file-title-input").val(),
+			$(this).val()
+		);
 	});
 
 	$(window).keydown(function(event){

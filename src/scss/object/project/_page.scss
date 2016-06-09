@@ -61,8 +61,7 @@
 					height: calc(100% - 55px);
 					padding: 25px 20px 30px;
 					position: relative;
-					overflow-x: scroll;
-					overflow-y: hidden;
+					overflow: hidden;
 				}
 			}
 
@@ -92,6 +91,17 @@
 					resize: none;
 				}
 			}
+
+			.editor-preview{
+				width: 50%;
+				flex-grow: 1;
+
+				&.editor-preview-hide{
+					width:0%;
+					flex-grow:0;
+				}
+
+			}
 		}
 
 	}
@@ -119,11 +129,11 @@
 		transition: all 0.2s ease-out;
 
 		&.settings-is-hidden{
-			left: 50px;
-			top: 50px;
+			left: 25px;
+			top: 25px;
 
-			width: calc(100% - 140px);
-			height: calc(100vh - 155px);
+			width: calc(100% - 90px);
+			height: calc(100vh - 105px);
 			opacity: 0.0;
 		}
 	}

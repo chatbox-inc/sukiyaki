@@ -3,7 +3,6 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="res/css/style.css">
-	<link rel="stylesheet" type="text/css" href="res/css/github-markdown.css">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 	<title>Markdown Editor - file2.md</title>
 </head>
@@ -47,9 +46,9 @@
 		<div class="editor-main">
 			<section class="editor-edit">
 				<div class="editor-content-wrapper">
-					<input type="" name="" class="file-title-input" placeholder="タイトルを入力">
+					<input type="" name="" class="file-title-input" placeholder="タイトルを入力" value="{{ title }}">
 
-<textarea placeholder="Type here...." class="editor-textarea"></textarea>	
+<textarea placeholder="Type here...." class="editor-textarea">{{ content }}</textarea>	
 				</div>
 			</section>
 
