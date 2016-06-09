@@ -26,24 +26,30 @@
 	</ul>
 </nav>
 
-<article class="mainpage">
+<div class="wrapper">
 
-	<div class="editor">
+	<div class="page editor">
 		<div class="filetree">
 			<header class="filetree-header">
 				<input type="text" name="search" placeholder="Search File..." class="filetree-search">
 			</header>
 
-			<ol class="filetree-list"></ol>
+			<ol class="filetree-list">
+				<li class="filetree-list-content" v-for="file in files">
+					<b>{{file.name}}</b>
+					<p class="filetree-list-content-body">
+						{{file.content}}
+					</p>
+				</li>
+			</ol>
 		</div>
 
 		<div class="editor-main">
 			<section class="editor-edit">
 				<div class="editor-content-wrapper">
-					<h1 class="file-title">今すぐ◯◯を捨てるべき△の理由</h1>
+					<input type="" name="" class="file-title-input" placeholder="タイトルを入力">
 
-<textarea placeholder="Type here...." class="editor-textarea"># 今すぐ◯◯を捨てるべき△の理由
-
+<textarea placeholder="Type here...." class="editor-textarea">
 paragraph paragraph paragraph paragraph paragraph 
 aaaaa</textarea>	
 				</div>
@@ -51,7 +57,11 @@ aaaaa</textarea>
 
 			<section class="editor-preview">
 				<div class="editor-content-wrapper markdown-body">
-					<h1 class="file-title">Preview</h1>
+					<h1 class="file-title"></h1>
+
+					<div class="preview-content">
+						
+					</div>
 				</div>
 			</section>
 
@@ -59,10 +69,10 @@ aaaaa</textarea>
 		</div>
 	</div>
 
-	<div class="settings">
+	<div class="page settings settings-is-hidden">
 		<h1>Settings</h1>
 	</div>
-</article>
+</div>
 
 <script src="res/js/main.js"></script>
 <script>require('electron-connect').client.create()</script> 

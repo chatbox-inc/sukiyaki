@@ -33,7 +33,7 @@ gulp.task("js", function (){
 })
 
 gulp.task("sass", function(){
-	gulp.src(dir.build_base + dir.source + "/scss/*.scss")
+	gulp.src(dir.build_base + dir.source + "/scss/style.scss")
 		.pipe(plumber({
 			errorHandler: notify.onError("<%= error.message %>")
 		}))
