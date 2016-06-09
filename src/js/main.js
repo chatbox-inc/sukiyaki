@@ -8,17 +8,29 @@ const remote = require('electron').remote;
 const dialog = remote.dialog;
 const browserWindow = remote.BrowserWindow;
 
+var isCreatedNewFile = false;
 var currentPath = "";
 var files = [];
 
-$( _=> {
+var fileTree = new Vue({
+	el: ".filetree-list",
+	data : {
+		files : files
+	}
+});
 
-	new Vue({
-		el: ".filetree-list",
-		data : {
-			files : files
-		}
-	});
+marked.setOptions({
+	renderer: new marked.Renderer(),
+	gfm: true,
+	tables: true,
+	breaks: false,
+	pedantic: false,
+	sanitize: true,
+	smartLists: true,
+	smartypants: false
+});
+
+$( _=> {
 
 	fs.readdir('.', (err, readFiles) =>{
 		if (err) throw err;
@@ -31,21 +43,30 @@ $( _=> {
 		});
 
 		_.map(fileList, (file) => {
-			console.log(file);
 	    	fs.readFile('./' + file, 'utf8', (err, text) => {
 	    		if (err) throw err;
-	    		console.log("wei");
 
 	    		files.push({
-	    			name: file,
-	    			content: nl2br(text, false)
+	    			name   : file,
+	    			content: nl2br(text, false),
+	    			active : false
 	    		});
 			});
 		});
 	});
 
+	function newFile(){
+		if(! isCreatedNewFile){
+			files.unshift({
+				name   : "",
+				content: "",
+				active : true
+			});
+			isCreatedNewFile = true;
+		}
+	}
+
 	function save(){
-		//　初期の入力エリアに設定されたテキストを保存しようとしたときは新規ファイルを作成する
 		if (currentPath == "") {
 			saveNewFile();
 			return;
@@ -81,6 +102,10 @@ $( _=> {
 	}
 
 	function writeFile(path, data) {
+		_.map(files, (file) => {
+			file.active = false;
+			return file;
+		});
 		fs.writeFile(path, data, function (error) {
 			if (error != null) {
 				alert('error : ' + error);
@@ -89,34 +114,17 @@ $( _=> {
 		});
 	}
 
-	marked.setOptions({
-		renderer: new marked.Renderer(),
-		gfm: true,
-		tables: true,
-		breaks: false,
-		pedantic: false,
-		sanitize: true,
-		smartLists: true,
-		smartypants: false
-	});
-
 	$(document).on('click', '.filetree-list-content', function(event) {
 		event.preventDefault();
-		$('.filetree-list-content').removeClass('active');
-		$(this).addClass('active');
+		_.map(files, (file) => {
+			file.active  = (file.name == $(this).children('.filetree-list-content-filename').text());
+			return file;
+		});
 	});
 
 	$(document).on('click', '.button-new-file', function(event) {
 		event.preventDefault();
-		$('.filetree-list').prepend(
-			'<li class="filetree-list-content">\
-				<b>新規ファイル</b>\
-				<p>\
-					\
-				</p>\
-			</li>'
-		);
-		$(".filetree-list .filetree-list-content:first-of-type").click();
+		newFile();
 	});
 
 	$(document).on('click', '.editor-toggle-preview', function(event) {

@@ -35,8 +35,8 @@
 			</header>
 
 			<ol class="filetree-list">
-				<li class="filetree-list-content" v-for="file in files">
-					<b>{{file.name}}</b>
+				<li class="filetree-list-content {{ file.active ? 'active' : ''}}" v-for="file in files">
+					<b class="filetree-list-content-filename">{{file.name}}</b>
 					<p class="filetree-list-content-body">
 						{{{file.content}}}
 					</p>
