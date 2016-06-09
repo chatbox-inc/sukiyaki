@@ -1,0 +1,24 @@
+html, body{
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	-webkit-font-smoothing: antialiased;
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, "Arial", "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN","メイリオ", Meiryo, sans-serif;
+}
+
+body{
+	display: flex;
+}
+
+ul, ol{
+	margin: 0;
+	padding: 0;
+}
+
+h1,h2,h3,h4,h5,h6{
+	padding: 0;
+	margin: 0; 
+	font-weight: normal;
+}
