@@ -57,6 +57,10 @@
 				overflow: hidden;
 			}
 
+			&.hide{
+				display: none;
+			}
+
 			&.active{
 				background: rgba(255, 255, 255, 0.1);
 			}

@@ -148,7 +148,7 @@ $( _=> {
 				]
 			},
 
-			function (fileName) {
+			(fileName) => {
 				if (fileName) {
 					var target = files.find( (file) => {
 						return file.name == "";
@@ -168,7 +168,7 @@ $( _=> {
 		fs.writeFile(path, data, function (error) {
 			if (error === null) return;
 
-			alert('error : ' + error);
+			alert('エラーが発生しました : ' + error);
 			return;
 		});
 	}
@@ -211,22 +211,21 @@ $( _=> {
 
 	$(document).on('click', '.button-settings', function(event) {
 		event.preventDefault();
-		$(".settings").toggleClass("settings-is-hidden");
 
+		$(".settings").toggleClass("settings-is-hidden");
 		$('.button-file-list').removeClass('active');
 		$('.button-settings').toggleClass('active');
 	});
 
 	// Tab Key
 	$(".editor-textarea").keydown(function(event){
-    	if (event.keyCode === 9) {
-        	event.preventDefault();
-        	var element = event.target;
-        	var val = element.value;
-        	var position = element.selectionStart;
-       		element.value = val.substr(0, position) + '\t' + val.substr(position, val.length);
-        	element.setSelectionRange(position + 1, position + 1);
-    	}
+    	if (event.keyCode !== 9) return;
+        event.preventDefault();
+        var element = event.target;
+        var val = element.value;
+        var position = element.selectionStart;
+       	element.value = val.substr(0, position) + '\t' + val.substr(position, val.length);
+        element.setSelectionRange(position + 1, position + 1);
 	});
 
 

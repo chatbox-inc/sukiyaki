@@ -4,7 +4,8 @@
 		height: 100%;
 		display: flex;
 
-		.file-title-input{
+		.file-title-input,
+		.file-title{
 			color: #555;
 			font-size: 20px;
 			margin-top: 4px;
@@ -17,22 +18,14 @@
 
 			outline: none;
 		}
-
 		.file-title{
-			color: #555;
-			font-size: 20px;
-
-			width: 100%;
-			border-bottom: solid 1px #e5e5e5;
-			font-weight: normal;
-
 			outline: none;
 			height: 38px;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
 		}
-
+		
 		.editor-main{
 			width: calc(100% - 200px);
 			height: 100%;
