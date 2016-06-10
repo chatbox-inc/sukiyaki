@@ -22,6 +22,7 @@
 		<li class="navigation-content button-settings">
 			<img src="res/images/icon_settings.png">
 		</li>
+		
 	</ul>
 </nav>
 
@@ -29,13 +30,13 @@
 
 	<div class="page editor">
 		<div class="filetree">
-			<header class="filetree-header">
+			<div class="filetree-header">
 				<input type="text" name="search" placeholder="Search File..." class="filetree-search">
-			</header>
+			</div>
 
 			<ol class="filetree-list">
-				<li class="filetree-list-content {{ file.active ? 'active' : ''}}" v-for="file in files">
-					<b class="filetree-list-content-filename">{{file.name}}</b>
+				<li class="filetree-list-content {{file.active ? 'active' : ''}} {{file.hide ? 'hide' : ''}}" v-for="file in files" data-filename="{{file.name}}">
+					<b class="filetree-list-content-filename">{{file.name ? file.name : "新規ファイル"}}</b>
 					<p class="filetree-list-content-body">
 						{{{file.content}}}
 					</p>
@@ -46,19 +47,17 @@
 		<div class="editor-main">
 			<section class="editor-edit">
 				<div class="editor-content-wrapper">
-					<input type="" name="" class="file-title-input" placeholder="タイトルを入力" value="{{ title }}">
+					<input type="" name="" class="file-title-input" placeholder="タイトルを入力" value="{{title}}">
 
-<textarea placeholder="Type here...." class="editor-textarea">{{ content }}</textarea>	
+					<textarea placeholder="Type here...." class="editor-textarea">{{content}}</textarea>	
 				</div>
 			</section>
 
 			<section class="editor-preview">
 				<div class="editor-content-wrapper markdown-body">
-					<h1 class="file-title"></h1>
+					<h1 class="file-title">{{title}}</h1>
 
-					<div class="preview-content">
-						
-					</div>
+					<div class="preview-content">{{{content}}}</div>
 				</div>
 			</section>
 

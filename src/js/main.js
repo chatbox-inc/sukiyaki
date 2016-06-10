@@ -1,6 +1,5 @@
 const fs     = require('fs');
 const $      = require('jquery');
-const _      = require('underscore');
 const marked = require('marked');
 const nl2br  = require('nl2br');
 const Vue    = require('vue');
@@ -13,6 +12,11 @@ var currentFile = {
 	title: "",
 	content: ""
 };
+var currentPreview = {
+	title: "",
+	content: ""
+};
+
 var files = [];
 
 var fileTree = new Vue({
@@ -27,6 +31,11 @@ var editor = new Vue({
 	data : currentFile
 });
 
+var preview = new Vue({
+	el: ".editor-preview",
+	data : currentPreview
+});
+
 marked.setOptions({
 	renderer: new marked.Renderer(),
 	gfm: true,
@@ -39,9 +48,9 @@ marked.setOptions({
 });
 
 function doLivePreview(title, text){
-	$(".file-title").text(title);
 	var md = marked(text);
-	$(".editor-preview .preview-content").html(md);
+	currentPreview.title = title;
+	currentPreview.content = md;
 }
 
 $( _=> {
@@ -56,7 +65,7 @@ $( _=> {
 		    fileList.push(file);
 		});
 
-		_.map(fileList, (file) => {
+		fileList.map( (file) => {
 	    	fs.readFile('./' + file, 'utf8', (err, text) => {
 	    		if (err) throw err;
 
@@ -101,7 +110,7 @@ $( _=> {
 
 	function newFile(){
 		if( files.find((file) =>{ return file.name == ""; }) === undefined){
-			_.map(files, (file) => {
+			files.map( (file) => {
 				file.active = false;
 				return file;
 			});
@@ -110,7 +119,7 @@ $( _=> {
 				content: "",
 				active : true
 			});
-			isCreatedNewFile = true;
+			openFile("");
 		}
 	}
 
@@ -156,15 +165,11 @@ $( _=> {
 	}
 
 	function writeFile(path, data) {
-		_.map(files, (file) => {
-			file.active = false;
-			return file;
-		});
 		fs.writeFile(path, data, function (error) {
-			if (error != null) {
-				alert('error : ' + error);
-				return;
-			}
+			if (error === null) return;
+
+			alert('error : ' + error);
+			return;
 		});
 	}
 
@@ -176,7 +181,7 @@ $( _=> {
 
 	$(document).on('click', '.filetree-list-content', function(event) {
 		event.preventDefault();
-		openFile($(this).children('.filetree-list-content-filename').text());
+		openFile($(this).attr("data-filename"));
 	});
 
 	$(document).on('click', '.editor-toggle-preview', function(event) {
@@ -194,7 +199,6 @@ $( _=> {
 	$(document).on('click', '.button-file-list', function(event) {
 		event.preventDefault();
 		if($(".button-settings").hasClass('active')){
-
 			$('.button-file-list').addClass('active');
 			$('.button-settings').removeClass('active');
 			$(".settings").toggleClass("settings-is-hidden");
@@ -226,10 +230,10 @@ $( _=> {
 	});
 
 
-	$('.editor-textarea').on('blur keyup', function(event) {
+	$('.editor-textarea, .file-title-input').on('blur keyup', function(event) {
 		doLivePreview(
 			$(".file-title-input").val(),
-			$(this).val()
+			$(".editor-textarea").val()
 		);
 	});
 
