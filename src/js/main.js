@@ -30,29 +30,6 @@ function doLivePreview(title, text){
 
 $( _=> {
 
-	fs.readdir('.', (err, readFiles) =>{
-		if (err) throw err;
-		var fileList = [];
-
-		readFiles.filter( (file) =>{
-		    return fs.statSync(file).isFile() && /.*\.md$/.test(file); //絞り込み
-		}).forEach( (file) =>{
-		    fileList.push(file);
-		});
-
-		fileList.map( (file) => {
-	    	fs.readFile('./' + file, 'utf8', (err, text) => {
-	    		if (err) throw err;
-
-	    		stores.files.push({
-	    			name   : file,
-	    			content: text,
-	    			active : false,
-	    		});
-			});
-		});
-	});
-
 	function openFile(name){
 		var target = stores.files.map( (file) => {
 				file.active = (file.name == name);
