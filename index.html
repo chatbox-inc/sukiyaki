@@ -6,60 +6,19 @@
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 	<title>Markdown Editor - file2.md</title>
 </head>
-<body>
+<body id="app">
 
-<nav class="navigation">
-	<ul class="navigation-list">
-		
-		<li class="navigation-content button-new-file">
-			<img src="res/images/icon_editor.png">
-		</li>
-
-		<li class="navigation-content active button-file-list">
-			<img src="res/images/icon_folder.png">
-		</li>
-		
-		<li class="navigation-content button-settings">
-			<img src="res/images/icon_settings.png">
-		</li>
-		
-	</ul>
-</nav>
+<navigation></navigation>
 
 <div class="wrapper">
 
 	<div class="page editor">
-		<div class="filetree">
-			<div class="filetree-header">
-				<input type="text" name="search" placeholder="Search File..." class="filetree-search">
-			</div>
-
-			<ol class="filetree-list">
-				<li class="filetree-list-content {{file.active ? 'active' : ''}} {{file.hide ? 'hide' : ''}}" v-for="file in files" data-filename="{{file.name}}">
-					<b class="filetree-list-content-filename">{{file.name ? file.name : "新規ファイル"}}</b>
-					<p class="filetree-list-content-body">
-						{{{file.content}}}
-					</p>
-				</li>
-			</ol>
-		</div>
+		<filetree></filetree>
 
 		<div class="editor-main">
-			<section class="editor-edit">
-				<div class="editor-content-wrapper">
-					<input type="" name="" class="file-title-input" placeholder="タイトルを入力" value="{{title}}">
+			<editor></editor>
 
-					<textarea placeholder="Type here...." class="editor-textarea">{{content}}</textarea>	
-				</div>
-			</section>
-
-			<section class="editor-preview">
-				<div class="editor-content-wrapper markdown-body">
-					<h1 class="file-title">{{title}}</h1>
-
-					<div class="preview-content">{{{content}}}</div>
-				</div>
-			</section>
+			<preview></preview>
 
 			<a href="#" class="editor-toggle-preview" title="プレビューの表示を切り替えます。"><i class="fa fa-fw fa-eye"></i></a>
 		</div>
@@ -70,7 +29,7 @@
 	</div>
 </div>
 
-<script src="res/js/main.js"></script>
-<script>require('electron-connect').client.create()</script> 
+<script src="res/js/bundle.js"></script>
+<script>require('electron-connect').client.create()</script>
 </body>
 </html>

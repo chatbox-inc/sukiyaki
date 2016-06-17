@@ -1,56 +1,31 @@
 const fs     = require('fs');
 const $      = require('jquery');
-const marked = require('marked');
-const nl2br  = require('nl2br');
 const Vue    = require('vue');
+
+const utility = require("./utility");
+
 const remote = require('electron').remote;
 const dialog = remote.dialog;
 const browserWindow = remote.BrowserWindow;
 
-var currentFile = {
-	name: "",
-	title: "",
-	content: ""
-};
-var currentPreview = {
-	title: "",
-	content: ""
-};
+require("./components");
 
-var files = [];
+utility.init();
 
-var fileTree = new Vue({
-	el: ".filetree-list",
-	data : {
-		files : files
-	}
-});
+var stores = {
+	files          : require("./stores/files"),
+	currentFile    : require("./stores/currentFile"),
+	currentPreview : require("./stores/currentPreview")
+}
 
-var editor = new Vue({
-	el: ".editor-edit",
-	data : currentFile
-});
-
-var preview = new Vue({
-	el: ".editor-preview",
-	data : currentPreview
-});
-
-marked.setOptions({
-	renderer: new marked.Renderer(),
-	gfm: true,
-	tables: true,
-	breaks: false,
-	pedantic: false,
-	sanitize: true,
-	smartLists: true,
-	smartypants: false
+var app = new Vue({
+	el: "#app"
 });
 
 function doLivePreview(title, text){
-	var md = marked(text);
-	currentPreview.title = title;
-	currentPreview.content = md;
+	var md = utility.marked(text);
+	stores.currentPreview.title = title;
+	stores.currentPreview.content = md;
 }
 
 $( _=> {
@@ -69,7 +44,7 @@ $( _=> {
 	    	fs.readFile('./' + file, 'utf8', (err, text) => {
 	    		if (err) throw err;
 
-	    		files.push({
+	    		stores.files.push({
 	    			name   : file,
 	    			content: text,
 	    			active : false,
@@ -79,7 +54,7 @@ $( _=> {
 	});
 
 	function openFile(name){
-		var target = files.map( (file) => {
+		var target = stores.files.map( (file) => {
 				file.active = (file.name == name);
 				return file;
 			})
@@ -98,9 +73,9 @@ $( _=> {
 			content += line + "\n";
 		});
 
-		currentFile.name = target.name;
-		currentFile.title = title;
-		currentFile.content = content;
+		stores.currentFile.name = target.name;
+		stores.currentFile.title = title;
+		stores.currentFile.content = content;
 
 		doLivePreview(
 			title,
@@ -109,12 +84,12 @@ $( _=> {
 	}
 
 	function newFile(){
-		if( files.find((file) =>{ return file.name == ""; }) === undefined){
-			files.map( (file) => {
+		if( stores.files.find((file) =>{ return file.name == ""; }) === undefined){
+			stores.files.map( (file) => {
 				file.active = false;
 				return file;
 			});
-			files.unshift({
+			stores.files.unshift({
 				name   : "",
 				content: "",
 				active : true
@@ -124,13 +99,13 @@ $( _=> {
 	}
 
 	function save(){
-		if (currentFile.name == "") {
+		if (stores.currentFile.name == "") {
 			saveNewFile();
 			return;
 		}
-		
+
 		var data = "# " + $(".file-title").text() + "\n" + $(".editor-textarea").val();
-		writeFile("./"+currentFile.name, data);
+		writeFile("./"+stores.currentFile.name, data);
 	};
 
 	function saveNewFile() {
@@ -150,11 +125,11 @@ $( _=> {
 
 			(fileName) => {
 				if (fileName) {
-					var target = files.find( (file) => {
+					var target = stores.files.find( (file) => {
 						return file.name == "";
 					});
 					target.name = fileName;
-					currentFile.name = fileName;
+					stores.currentFile.name = fileName;
 
 					var data = $(".file-title") + "\n" + $(".editor-textarea").val();
 					currentPath = fileName;
@@ -172,7 +147,6 @@ $( _=> {
 			return;
 		});
 	}
-
 
 	$(document).on('click', '.button-new-file', function(event) {
 		event.preventDefault();
@@ -218,7 +192,7 @@ $( _=> {
 	});
 
 	// Tab Key
-	$(".editor-textarea").keydown(function(event){
+	$(document).on('keydown', '.editor-textarea', function(event) {
     	if (event.keyCode !== 9) return;
         event.preventDefault();
         var element = event.target;
@@ -228,8 +202,7 @@ $( _=> {
         element.setSelectionRange(position + 1, position + 1);
 	});
 
-
-	$('.editor-textarea, .file-title-input').on('blur keyup', function(event) {
+	$(document).on('blur keyup', '.editor-textarea, .file-title-input', function(event) {
 		doLivePreview(
 			$(".file-title-input").val(),
 			$(".editor-textarea").val()

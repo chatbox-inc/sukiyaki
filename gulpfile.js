@@ -12,6 +12,7 @@ var plumber = require("gulp-plumber");
 var browserSync = require("browser-sync");
 var notify = require("gulp-notify");
 
+var webpack = require("webpack-stream");
 var electron = require('electron-connect').server.create();
 
 var dir = {
@@ -22,9 +23,10 @@ var dir = {
 };
 
 gulp.task("js", function (){
-	gulp.src(dir.build_base + dir.source + "/js/*.js")
+	gulp.src("res/js/main.js")
 		.pipe(plumber())
-		.pipe(gulp.dest(dir.build_base + dir.dest + "/js"));
+		.pipe(webpack( require('./webpack.config.js') ))
+		.pipe(gulp.dest("./"));
 		// .pipe(uglify())
 		// .pipe(rename({
 		// 	extname: ".min.js"
@@ -61,7 +63,7 @@ gulp.task("build", ["js", "sass"]);
 
 gulp.task("default", ["js", "sass"], function (){
 	electron.start();
-	
+
 	watch(
 		[dir.build_base + dir.source + "/js/**"],
 		function (){
