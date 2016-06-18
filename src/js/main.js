@@ -28,6 +28,21 @@ function doLivePreview(title, text){
 	stores.currentPreview.content = md;
 }
 
+function doSearchFiles(name){
+	if(!name){
+		stores.files.map( (file) => {
+			file.hide = false;
+			return file;
+		});
+		return;
+	}
+
+	stores.files.map( (file) => {
+		file.hide = (file.name.indexOf(name) != 0);
+		return file;
+	});
+}
+
 $( _=> {
 
 	function openFile(name){
@@ -69,7 +84,8 @@ $( _=> {
 			stores.files.unshift({
 				name   : "",
 				content: "",
-				active : true
+				active : true,
+				hide   : false
 			});
 			openFile("");
 		}
@@ -184,6 +200,10 @@ $( _=> {
 			$(".file-title-input").val(),
 			$(".editor-textarea").val()
 		);
+	});
+
+	$(document).on('blur keyup', '.filetree-search', function(event) {
+		doSearchFiles($(this).val());
 	});
 
 	$(window).keydown(function(event){
