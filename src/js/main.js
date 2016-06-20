@@ -68,12 +68,11 @@ $( _=> {
 		stores.currentFile.name = target.name;
 		stores.currentFile.title = title;
 		stores.currentFile.content = content;
-
+		$("title").text(target.name);
 		doLivePreview(
 			title,
 			content
 		);
-		console.log(stores.currentFile.title);
 	}
 
 	function newFile(){
@@ -93,6 +92,16 @@ $( _=> {
 	}
 
 	function save(){
+		var target = null;
+
+		stores.files.map( (file) => {
+			if(file.active){
+				file.unsaved = false;
+				target = file;
+			}
+			return file;
+		});
+
 		if (stores.currentFile.name == "") {
 			saveNewFile();
 			return;
@@ -175,8 +184,9 @@ $( _=> {
 			return;
 		}
 		$('.button-file-list').toggleClass('active');
+		$('.button-file-list .fa').toggleClass('fa-folder-open-o fa-folder-o');
 		$('.filetree').toggle();
-		$('.editor-main').toggleClass('editor-main-is-full');
+		$('.main-wrap').toggleClass('main-is-full');
 	});
 
 	$(document).on('click', '.button-settings', function(event) {
@@ -199,8 +209,16 @@ $( _=> {
 	});
 
 	$(document).on('keyup', '.editor-textarea, .file-title-input', function(event) {
-		var target = stores.files.find( (file) => {
-			return file.active;
+		var target = null;
+		var content = "# " + $(".file-title").text() + "\n" + $(".editor-textarea").val();
+
+		console.log(content);
+		stores.files.map( (file) => {
+			if( file.active){
+				if(content != file.content) file.unsaved = true;
+				target = file;
+			}
+			return file;
 		});
 		target.content = "# " + $(".file-title").text() + "\n" + $(".editor-textarea").val();
 		doLivePreview(

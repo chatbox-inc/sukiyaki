@@ -1,0 +1,27 @@
+.editor-preview{
+	width: 50%;
+	flex-grow: 1;
+	height: 100%;
+	// transition: all 0.2s ease-out;
+
+	&.editor-preview-hide{
+		width:0%;
+		flex-grow:0;
+	}
+
+	.editor-content-wrapper{
+		height: 100%;
+		padding: 0;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.preview-content{
+		width: calc(100% - 40px);
+		height: calc(100% - 78px);
+		overflow: scroll;
+
+		margin: 10px;
+		padding: 10px;
+	}
+}
