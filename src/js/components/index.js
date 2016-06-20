@@ -11,3 +11,7 @@ Vue.component('editor', Vue.extend(editor));
 
 var preview = require("./preview");
 Vue.component('preview', Vue.extend(preview));
+
+
+var settings = require("./settings");
+Vue.component('settings', Vue.extend(settings));
