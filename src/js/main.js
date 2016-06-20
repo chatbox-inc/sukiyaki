@@ -73,6 +73,7 @@ $( _=> {
 			title,
 			content
 		);
+		console.log(stores.currentFile.title);
 	}
 
 	function newFile(){
@@ -97,8 +98,10 @@ $( _=> {
 			return;
 		}
 
-		var data = "# " + $(".file-title").text() + "\n" + $(".editor-textarea").val();
-		writeFile("./"+stores.currentFile.name, data);
+		var target = stores.files.find( (file) => {
+			return file.active;
+		});
+		writeFile("./"+stores.currentFile.name, target.content);
 	};
 
 	function saveNewFile() {
@@ -195,7 +198,11 @@ $( _=> {
         element.setSelectionRange(position + 1, position + 1);
 	});
 
-	$(document).on('blur keyup', '.editor-textarea, .file-title-input', function(event) {
+	$(document).on('keyup', '.editor-textarea, .file-title-input', function(event) {
+		var target = stores.files.find( (file) => {
+			return file.active;
+		});
+		target.content = "# " + $(".file-title").text() + "\n" + $(".editor-textarea").val();
 		doLivePreview(
 			$(".file-title-input").val(),
 			$(".editor-textarea").val()

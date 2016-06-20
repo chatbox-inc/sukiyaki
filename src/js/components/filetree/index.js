@@ -26,7 +26,8 @@ const template = {
 		    			name   : file,
 		    			content: text,
 		    			active : false,
-						hide   : false
+						hide   : false,
+						unsaved: false
 		    		});
 				});
 			});
