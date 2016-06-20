@@ -1,96 +1,65 @@
 .page{
-	&.editor{
+	&.main{
 		width: 100%;
 		height: 100%;
 		display: flex;
 
-		.file-title-input{
-			color: #555;
-			font-size: 20px;
-			margin-top: 4px;
-			padding: 8px 0;
-
-			width: 100%;
-			border:none;
-			border-bottom: solid 1px #e5e5e5;
-			font-weight: normal;
-
-			outline: none;
-		}
-
-		.file-title{
-			color: #555;
-			font-size: 20px;
-
-			width: 100%;
-			border-bottom: solid 1px #e5e5e5;
-			font-weight: normal;
-
-			outline: none;
-			height: 38px;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-
-		.editor-main{
+		.main-wrap{
 			width: calc(100% - 200px);
 			height: 100%;
 			display: flex;
 
-			&.editor-main-is-full{
+			&.main-is-full{
 				width: 100%;
+			}
+
+			.file-title-template{
+				font-size: 20px;
+				margin: 4px 10px 0;
+				padding: 10px 15px;
+
+				width: calc(100% - 50px);
+				background: transparent;
+				border:none;
+				border-bottom-width: 1px;
+				border-bottom-style: solid;
+				font-weight: normal;
+
+				outline: none;
+
+				height: 23px;
+
+			}
+
+			.file-title-input{
+				@extend .file-title-template;
+
+				background: #f0f0f0;
+
+				border-bottom-color: transparent;
+				border-radius: 4px 4px 0 0 / 4px 4px 0 0;
+			}
+
+			.file-title{
+				@extend .file-title-template;
+				outline: none;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+
+				border-bottom-color: #e5e5e5;
 			}
 
 			.editor-toggle-preview{
 				position: absolute;
 				right: 30px;
-				top:30px;
+				top:14px;
 				color: #999;
-			}
-
-
-			.editor-edit,
-			.editor-preview{
-				flex-grow:1;
-				width: 50%;
-				height: 100%;
-				// transition: all 0.2s ease-out;
-
-				.editor-content-wrapper{
-					height: calc(100% - 55px);
-					padding: 25px 20px 30px;
-					position: relative;
-					overflow-x: scroll;
-					overflow-y: hidden;
-				}
-			}
-
-			.editor-preview .editor-content-wrapper{
-				padding: 31px 20px 28px;
 			}
 
 			*::-webkit-scrollbar{
 				width:0;
 				display:none;
-			}
-
-			.editor-edit{
-				&::-webkit-scrollbar{
-					display:none;
-				}
-				.editor-textarea{
-					width: 100%;
-					height: calc(100% - 60px);
-
-					margin-top: 20px;
-					border: none;
-					outline: none;
-					line-height: 1.6;
-					font-size: 12px;
-					background: transparent;
-					resize: none;
-				}
 			}
 		}
 
@@ -107,7 +76,7 @@
 		z-index: 1000;
 
 		padding: 25px 20px 30px;
-		
+
 		width: calc(100% - 40px);
 		height: calc(100vh - 55px);
 
@@ -119,11 +88,11 @@
 		transition: all 0.2s ease-out;
 
 		&.settings-is-hidden{
-			left: 50px;
-			top: 50px;
+			left: 25px;
+			top: 25px;
 
-			width: calc(100% - 140px);
-			height: calc(100vh - 155px);
+			width: calc(100% - 90px);
+			height: calc(100vh - 105px);
 			opacity: 0.0;
 		}
 	}

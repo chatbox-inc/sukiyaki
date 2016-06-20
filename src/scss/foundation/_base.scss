@@ -1,3 +1,17 @@
+@font-face {
+    font-family: 'Source Han Code JP';
+    src: url('../fonts/SourceHanCodeJP-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+	font-family: 'Source Han Code JP';
+	src: url('../fonts/SourceHanCodeJP-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
 html, body{
 	margin: 0;
 	padding: 0;
@@ -19,6 +33,11 @@ ul, ol{
 
 h1,h2,h3,h4,h5,h6{
 	padding: 0;
-	margin: 0; 
+	margin: 0;
 	font-weight: normal;
+}
+
+
+input, textarea{
+	font-family: 'Source Han Code JP';
 }

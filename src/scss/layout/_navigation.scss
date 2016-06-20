@@ -18,6 +18,13 @@
 
 			cursor: pointer;
 
+			color: #ccc;
+			font-size: 22px;
+
+			&:hover, &.active{
+				color: #f0f0f0;
+			}
+
 			&.active:before{
 				content: "";
 
