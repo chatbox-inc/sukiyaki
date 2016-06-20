@@ -67,7 +67,7 @@
 
 	&.settings{
 		display: block;
-		pointer-events: none;
+		pointer-events: all;
 
 		position: absolute;
 		left: 0;
@@ -90,6 +90,7 @@
 		&.settings-is-hidden{
 			left: 25px;
 			top: 25px;
+			pointer-events: none;
 
 			width: calc(100% - 90px);
 			height: calc(100vh - 105px);
