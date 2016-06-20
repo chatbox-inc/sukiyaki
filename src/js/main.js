@@ -7,7 +7,6 @@ const utility = require("./utility");
 const remote = require('electron').remote;
 const dialog = remote.dialog;
 const browserWindow = remote.BrowserWindow;
-
 require("./components");
 
 utility.init();
@@ -236,3 +235,7 @@ $( _=> {
 		if(event.shiftKey || event.metaKey) save();
 	});
 })
+
+
+
+require('electron-connect').client.create();
