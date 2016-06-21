@@ -14,8 +14,9 @@ utility.init();
 var stores = {
 	files          : require("./stores/files"),
 	currentFile    : require("./stores/currentFile"),
-	currentPreview : require("./stores/currentPreview")
-}
+	currentPreview : require("./stores/currentPreview"),
+	saveDialog     : require("./stores/savedialog")
+};
 
 var app = new Vue({
 	el: "#app"
@@ -43,6 +44,7 @@ function doSearchFiles(name){
 }
 
 $( _=> {
+	newFile();
 
 	function openFile(name){
 		var target = stores.files.map( (file) => {
@@ -86,8 +88,8 @@ $( _=> {
 				active : true,
 				hide   : false
 			});
-			openFile("");
 		}
+		openFile("");
 	}
 
 	function save(){
@@ -113,35 +115,30 @@ $( _=> {
 	};
 
 	function saveNewFile() {
-		var win = browserWindow.getFocusedWindow();
-		dialog.showSaveDialog(
-			win,
-
-			{
-				properties: ['openFile'],
-				filters: [
-					{
-						name: 'Desktop',
-						extensions: ['md']
-					}
-				]
-			},
-
-			(fileName) => {
-				if (fileName) {
-					var target = stores.files.find( (file) => {
-						return file.name == "";
-					});
-					target.name = fileName;
-					stores.currentFile.name = fileName;
-
-					var data = $(".file-title") + "\n" + $(".editor-textarea").val();
-					currentPath = fileName;
-					writeFile(currentPath, data);
-				}
-			}
-		);
+		stores.saveDialog.status = "show";
 	}
+
+	$(".savedialog .modal-background").on('click', function (event){
+		stores.saveDialog.status = "hide";
+	})
+
+	$(".savedialog input").on('keydown', function (event){
+		if(event.keyCode == 13){
+			var target;
+
+			stores.files.map( (file) => {
+				if(file.active){
+					target = file;
+					file.name = $(this).val()
+				}
+				return file;
+			});
+			console.log(stores.files);
+			writeFile("./"+$(this).val(), target.content);
+			stores.currentFile.name = $(this).val();
+			stores.saveDialog.status = "hide";
+		}
+	})
 
 	function writeFile(path, data) {
 		fs.writeFile(path, data, function (error) {
@@ -185,7 +182,7 @@ $( _=> {
 		$('.button-file-list').toggleClass('active');
 		$('.button-file-list .fa').toggleClass('fa-folder-open-o fa-folder-o');
 		$('.filetree').toggle();
-		$('.main-wrap').toggleClass('main-is-full');
+		$('.main-wrap').toggleClass('is-full');
 	});
 
 	$(document).on('click', '.button-settings', function(event) {
