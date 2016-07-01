@@ -3,7 +3,7 @@ const template = {
 	methods: {
 		newFile: function() {
 			var action = require("../../services/action");
-			action.newFile("");
+			action.newFile("newFile");
 		},
 
 		toggleFileList: function() {
