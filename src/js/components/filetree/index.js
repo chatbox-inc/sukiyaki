@@ -7,7 +7,6 @@ const template = {
 			searchText : "",
 			stores               : require("../../stores"),
 			files                : require("../../stores/files"),
-			config               : require("../../stores/config"),
 			is_ended_constructor : false
 		}
 	},
@@ -84,6 +83,8 @@ const template = {
 		},
 
 		open: function(e) {
+			var action = require("../../services/action");
+
 			var name = e;
 			if(typeof(event) == "object" ){
 				name = event.target.dataset.filename;
@@ -116,7 +117,6 @@ const template = {
 				this.is_ended_constructor = true;
 				return;
 			}
-			var action = require("../../services/action");
 			action.preview(
 				title,
 				content,
