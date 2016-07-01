@@ -7,7 +7,6 @@ var io_core = {
 
 			Promise.resolve()
 			.then( () => {
-				console.log(this);
 				return this.getFileList(readDir);
 			})
 			.then( (fileList) => {
@@ -31,7 +30,14 @@ var io_core = {
 		});
 	},
 
-	
+	save: (path, data) => {
+		return new Promise( (resolve, reject) => {
+			fs.writeFile(path, data, function (error) {
+				if (error === null) resolve();
+				reject(error);
+			});
+		});
+	},
 
 	getFileList: (readDir) => {
 		return new Promise ( (resolve, reject) => {
@@ -41,7 +47,6 @@ var io_core = {
 				var fileList = [];
 
 				readFiles.filter( (file) =>{
-					console.log(file);
 				    return /.*\.md$/.test(file); //絞り込み
 				}).forEach( (file) =>{
 				    fileList.push(file);

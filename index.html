@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="res/css/font-awesome.min.css">
 	<title>Markdown Editor</title>
 </head>
-<body id="app">
+<body id="app" v-on:keydown="hookKey">
 
 <navigation></navigation>
 
@@ -20,7 +20,7 @@
 
 			<preview></preview>
 
-			<a href="#" class="editor-toggle-preview" title="プレビューの表示を切り替えます。"><i class="fa fa-fw fa-eye"></i></a>
+			<togglepreview></togglepreview>
 		</div>
 	</div>
 

@@ -1,6 +1,6 @@
-<div class="modal savedialog modal-{{status}}">
+<div class="modal savedialog modal-{{stores.saveDialog}}">
 	<div class="modal-content">
-		<input type="text" class="modal-content-input" placeholder="ファイル名を入力" name="filename">
+		<input type="text" class="modal-content-input" placeholder="ファイル名を入力" name="filename" v-model="name" v-on:keydown="saveCheck">
 	</div>
 	<div class="modal-background" v-on:click="hide"></div>
 </div>

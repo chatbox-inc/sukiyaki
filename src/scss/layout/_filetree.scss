@@ -44,6 +44,10 @@
 
 			cursor: pointer;
 
+			*{
+				pointer-events: none;
+			}
+
 			b{
 				font-size: 12px;
 			}

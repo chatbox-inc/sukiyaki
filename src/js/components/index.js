@@ -3,9 +3,6 @@ var Vue = require("vue");
 var navigation = require("./navigation");
 Vue.component('navigation', Vue.extend(navigation));
 
-var filetree = require("./filetree");
-Vue.component('filetree', Vue.extend(filetree));
-
 var editor = require("./editor");
 Vue.component('editor', Vue.extend(editor));
 
@@ -17,3 +14,9 @@ Vue.component('settings', Vue.extend(settings));
 
 var savedialog = require("./savedialog");
 Vue.component('savedialog', Vue.extend(savedialog));
+
+var filetree = require("./filetree");
+Vue.component('filetree', Vue.extend(filetree));
+
+var togglepreview = require("./togglepreview");
+Vue.component('togglepreview', Vue.extend(togglepreview));
