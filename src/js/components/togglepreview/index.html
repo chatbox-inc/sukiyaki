@@ -1,1 +1,3 @@
-<a href="#" class="editor-toggle-preview" title="プレビューの表示を切り替えます。" v-on:click="toggle"><i class="fa fa-fw fa-eye"></i></a>
+<a href="#" class="editor-toggle-preview" title="プレビューの表示を切り替えます。" v-on:click="toggle">
+	<i class="fa fa-fw {{status == 'show' ? 'fa-eye' : 'fa-eye-slash'}}"></i>
+</a>

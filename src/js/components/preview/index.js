@@ -3,13 +3,15 @@ const template = {
 	data: () => {
 		return {
 			file: require("../../stores/currentPreview"),
-			stores: require("../../stores/")
+			stores: require("../../stores/"),
+			status: "show"
 		}
 	},
 
 	created: function() {
 		var action = require("../../services/action");
 		action.preview = this.preview;
+		action.togglePreviewArea = this.toggle;
 	},
 
 	methods: {
@@ -18,6 +20,10 @@ const template = {
 			var md = utility.marked(content);
 			this.stores.currentPreview.title = title;
 			this.stores.currentPreview.content = md;
+		},
+
+		toggle: function() {
+			this.status = (this.status == "show" ? "hide" : "show");
 		}
 	}
 };
