@@ -7,6 +7,9 @@ const utility = require("./utility");
 const remote = require('electron').remote;
 const dialog = remote.dialog;
 const browserWindow = remote.BrowserWindow;
+
+const path = require("path");
+
 require("./components");
 
 utility.init();
@@ -15,7 +18,8 @@ var stores = {
 	files          : require("./stores/files"),
 	currentFile    : require("./stores/currentFile"),
 	currentPreview : require("./stores/currentPreview"),
-	saveDialog     : require("./stores/savedialog")
+	saveDialog     : require("./stores/savedialog"),
+	config         : require("./stores/config")
 };
 
 var app = new Vue({
@@ -111,7 +115,7 @@ $( _=> {
 		var target = stores.files.find( (file) => {
 			return file.active;
 		});
-		writeFile("./"+stores.currentFile.name, target.content);
+		writeFile(path.join(stores.config.root_dir, stores.currentFile.name), target.content);
 	};
 
 	function saveNewFile() {
@@ -134,7 +138,7 @@ $( _=> {
 				return file;
 			});
 			console.log(stores.files);
-			writeFile("./"+$(this).val(), target.content);
+			writeFile(path.join(stores.config.root_dir, $(this).val()), target.content);
 			stores.currentFile.name = $(this).val();
 			stores.saveDialog.status = "hide";
 		}
@@ -202,6 +206,19 @@ $( _=> {
         var position = element.selectionStart;
        	element.value = val.substr(0, position) + '\t' + val.substr(position, val.length);
         element.setSelectionRange(position + 1, position + 1);
+	});
+
+	$(document).on('click', '.settings-default-path-button', function (event){
+		event.preventDefault();
+		var focusedWindow = browserWindow.getFocusedWindow();
+
+		dialog.showOpenDialog(focusedWindow, {
+			properties: ['openDirectory']
+		}, function(directories){
+			directories.forEach(function(directory){
+				$(".settings-detault-path").val(directory);
+			});
+		});
 	});
 
 	$(document).on('keyup', '.editor-textarea, .file-title-input', function(event) {

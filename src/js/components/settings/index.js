@@ -1,7 +1,9 @@
 const template = {
 	template: require("./index.html"),
 	data: () => {
-		return {}
+		return {
+			config: require("../../stores/config")
+		}
 	}
 };
 

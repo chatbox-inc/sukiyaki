@@ -1,0 +1,15 @@
+.page.settings{
+	.settings-title{
+		margin: 30px 0  10px;
+		font-size: 22px;
+	}
+	select{
+	    -webkit-appearance: none;
+	    width: auto;
+	    padding: 5px 20px 5px 5px;
+	    border-radius: 2px;
+		background: linear-gradient(#F5F5F5, #E2E2E2);
+		position: relative;
+		outline: #0000ff;
+	}
+}
