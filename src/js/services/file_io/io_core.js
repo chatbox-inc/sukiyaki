@@ -1,8 +1,6 @@
 const fs = require("fs");
-
 var io_core = {
 	getList: function (readDir) {
-		console.log(this);
 		return new Promise( (resolve, reject) => {
 
 			Promise.resolve()
@@ -30,9 +28,9 @@ var io_core = {
 		});
 	},
 
-	save: (path, data) => {
+	save: (saveDir, filename, data) => {
 		return new Promise( (resolve, reject) => {
-			fs.writeFile(path, data, function (error) {
+			fs.writeFile(require("path").join(saveDir, filename), data, function (error) {
 				if (error === null) resolve();
 				reject(error);
 			});

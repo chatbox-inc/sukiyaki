@@ -38,7 +38,7 @@ const template = {
 					}
 					return file;
 				});
-				action.writeFile(path.join(this.stores.config.root_dir, this.name), target.content);
+				action.writeFile(this.stores.config.root_dir, this.name, target.content);
 				this.stores.currentFile.name = this.name;
 				this.stores.saveDialog = "hide";
 			}

@@ -72,13 +72,13 @@ const template = {
 			var target = this.stores.files.find( (file) => {
 				return file.active;
 			});
-			this.writeFile(path.join(this.stores.config.root_dir, this.stores.currentFile.name), target.content);
+			this.writeFile(this.stores.config.root_dir, this.stores.currentFile.name, target.content);
 		},
 
-		writeFile: function(name, content) {
+		writeFile: function(dir, name, content) {
 
 			require("../../services/file_io")
-			.save(name, content)
+			.save(dir, name, content)
 			.catch( (err) => {
 				alert("エラーが発生しました。\n" + err);
 			});
