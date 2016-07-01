@@ -1,26 +1,16 @@
 const fs     = require('fs');
 const $      = require('jquery');
 const Vue    = require('vue');
-
 const utility = require("./utility");
-
 const remote = require('electron').remote;
 const dialog = remote.dialog;
 const browserWindow = remote.BrowserWindow;
-
 const path = require("path");
 
 require("./components");
+var stores = require("./stores");
 
 utility.init();
-
-var stores = {
-	files          : require("./stores/files"),
-	currentFile    : require("./stores/currentFile"),
-	currentPreview : require("./stores/currentPreview"),
-	saveDialog     : require("./stores/savedialog"),
-	config         : require("./stores/config")
-};
 
 var app = new Vue({
 	el: "#app"
@@ -30,21 +20,6 @@ function doLivePreview(title, text){
 	var md = utility.marked(text);
 	stores.currentPreview.title = title;
 	stores.currentPreview.content = md;
-}
-
-function doSearchFiles(name){
-	if(!name){
-		stores.files.map( (file) => {
-			file.hide = false;
-			return file;
-		});
-		return;
-	}
-
-	stores.files.map( (file) => {
-		file.hide = (file.name.indexOf(name) != 0);
-		return file;
-	});
 }
 
 $( _=> {
@@ -122,10 +97,6 @@ $( _=> {
 		stores.saveDialog.status = "show";
 	}
 
-	$(".savedialog .modal-background").on('click', function (event){
-		stores.saveDialog.status = "hide";
-	})
-
 	$(".savedialog input").on('keydown', function (event){
 		if(event.keyCode == 13){
 			var target;
@@ -137,7 +108,6 @@ $( _=> {
 				}
 				return file;
 			});
-			console.log(stores.files);
 			writeFile(path.join(stores.config.root_dir, $(this).val()), target.content);
 			stores.currentFile.name = $(this).val();
 			stores.saveDialog.status = "hide";
@@ -208,19 +178,6 @@ $( _=> {
         element.setSelectionRange(position + 1, position + 1);
 	});
 
-	$(document).on('click', '.settings-default-path-button', function (event){
-		event.preventDefault();
-		var focusedWindow = browserWindow.getFocusedWindow();
-
-		dialog.showOpenDialog(focusedWindow, {
-			properties: ['openDirectory']
-		}, function(directories){
-			directories.forEach(function(directory){
-				$(".settings-detault-path").val(directory);
-			});
-		});
-	});
-
 	$(document).on('keyup', '.editor-textarea, .file-title-input', function(event) {
 		var target = null;
 		var content = "# " + $(".file-title").text() + "\n" + $(".editor-textarea").val();
@@ -240,16 +197,10 @@ $( _=> {
 		);
 	});
 
-	$(document).on('blur keyup', '.filetree-search', function(event) {
-		doSearchFiles($(this).val());
-	});
-
 	$(window).keydown(function(event){
 		if(event.keyCode !== 83) return;
 		if(event.shiftKey || event.metaKey) save();
 	});
-})
-
-
+});
 
 require('electron-connect').client.create();

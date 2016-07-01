@@ -1,6 +1,6 @@
 <div class="filetree">
 	<div class="filetree-header">
-		<input type="text" name="search" placeholder="Search File..." class="filetree-search">
+		<input type="text" name="search" placeholder="Search File..." class="filetree-search" v-model="searchText" v-on:keyup="search">
 	</div>
 
 	<ol class="filetree-list">
