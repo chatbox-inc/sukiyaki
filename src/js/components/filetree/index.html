@@ -5,7 +5,7 @@
 
 	<ol class="filetree-list">
 		<li class="filetree-list-content {{file.active ? 'active' : ''}} {{file.hide ? 'hide' : ''}} {{file.unsaved ? 'unsaved' : ''}}" v-for="file in files" v-on:click="open" data-filename="{{file.name}}">
-			<b class="filetree-list-content-filename">{{file.name ? file.name : "新規ファイル"}}</b>
+			<b class="filetree-list-content-filename">{{file.name != "newFile" ? file.name : "新規ファイル"}}</b>
 			<p class="filetree-list-content-body">
 				{{{file.content}}}
 			</p>

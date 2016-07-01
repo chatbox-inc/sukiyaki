@@ -31,7 +31,7 @@ const template = {
 			});
 		});
 
-		this.newFile("");
+		this.newFile("newFile");
 	},
 
 	methods: {
@@ -42,18 +42,19 @@ const template = {
 					return file;
 				});
 				this.stores.files.unshift({
-					name   : "",
+					name   : name,
 					content: "",
 					active : true,
 					hide   : false
 				});
 			}
-			this.open("");
+			this.open("newFile");
 		},
 
 		save: function() {
 			var target = null;
 			var action = require("../../services/action");
+			var path = require("path");
 
 			this.stores.files.map( (file) => {
 				if(file.active){
@@ -63,7 +64,7 @@ const template = {
 				return file;
 			});
 
-			if (this.stores.currentFile.name == "") {
+			if (this.stores.currentFile.name == "newFile") {
 				action.showSaveDialog();
 				return;
 			}
@@ -74,9 +75,10 @@ const template = {
 			this.writeFile(path.join(this.stores.config.root_dir, this.stores.currentFile.name), target.content);
 		},
 
-		writeFile: function() {
+		writeFile: function(name, content) {
+
 			require("../../services/file_io")
-			.save(path.join(this.stores.config.root_dir, this.stores.currentFile.name), target.content)
+			.save(name, content)
 			.catch( (err) => {
 				alert("エラーが発生しました。\n" + err);
 			});

@@ -1,4 +1,3 @@
-const $ = require("jquery");
 const template = {
 	template: require("./index.html"),
 	data: () => {
@@ -25,7 +24,11 @@ const template = {
 		},
 
 		saveCheck: function(event) {
+			var action = require("../../services/action");
+			var path = require("path");
+
 			if(event.keyCode == 13){
+				if(this.name.indexOf(".md") == -1) this.name += ".md";
 				var target;
 
 				this.stores.files.map( (file) => {
@@ -35,9 +38,9 @@ const template = {
 					}
 					return file;
 				});
-				writeFile(path.join(this.stores.config.root_dir, this.name), target.content);
+				action.writeFile(path.join(this.stores.config.root_dir, this.name), target.content);
 				this.stores.currentFile.name = this.name;
-				this.stores.saveDialog.status = "hide";
+				this.stores.saveDialog = "hide";
 			}
 		}
 	}
