@@ -1,3 +1,5 @@
 node_modules/
 /res/js/
 /res/css/
+
+.DS_Store
