@@ -1,5 +1,3 @@
-const fs = require("fs");
-
 const template = {
 	template: require("./index.html"),
 	data: () => {
@@ -8,8 +6,9 @@ const template = {
 			stores               : require("../../stores"),
 			files                : require("../../stores/files"),
 			is_ended_constructor : false
-		}
+		};
 	},
+
 	created: function() {
 		var action = require("../../services/action");
 		action.newFile = this.newFile;
@@ -54,7 +53,6 @@ const template = {
 		save: function() {
 			var target = null;
 			var action = require("../../services/action");
-			var path = require("path");
 
 			this.stores.files.map( (file) => {
 				if(file.active){
@@ -69,7 +67,7 @@ const template = {
 				return;
 			}
 
-			var target = this.stores.files.find( (file) => {
+			target = this.stores.files.find( (file) => {
 				return file.active;
 			});
 			this.writeFile(this.stores.config.root_dir, this.stores.currentFile.name, target.content);
@@ -93,12 +91,12 @@ const template = {
 			}
 
 			var target = this.stores.files.map( (file) => {
-					file.active = (file.name == name);
-					return file;
-				})
-				.find( (file) => {
-					return file.name == name;
-				});
+				file.active = (file.name == name);
+				return file;
+			})
+			.find( (file) => {
+				return file.name == name;
+			});
 
 			var text    = target.content.replace(/\r\n|\r/g, "\n");
 			var raw_content = text.split("\n");

@@ -4,11 +4,10 @@ const template = {
 		return {
 			"stores" : require("../../stores/"),
 			"status" : "show"
-		}
+		};
 	},
 
 	created: function() {
-		var action = require("../../services/action");
 	},
 
 	methods: {
