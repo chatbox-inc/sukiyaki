@@ -33,11 +33,19 @@ const template = {
 		insertTab: function (event){
 		    if (event.keyCode !== 9) return;
 		    event.preventDefault();
-		    var element = event.target;
-		    var val = element.value;
-		    var position = element.selectionStart;
-			element.value = val.substr(0, position) + '\t' + val.substr(position, val.length);
-		    element.setSelectionRange(position + 1, position + 1);
+
+			let width = (this.config.indent_type == "tabs" ? 1 : +this.config.indent_width);
+			let spacing = (
+				this.config.indent_type == "tabs" ?
+					"\t" :
+					Array((+this.config.indent_width)+1).join(" ")
+			);
+		    let element = event.target;
+		    let val = element.value;
+		    let position = element.selectionStart;
+
+			element.value = val.substr(0, position) + spacing + val.substr(position, val.length);
+		    element.setSelectionRange(position + width, position + width);
 		}
 	}
 };

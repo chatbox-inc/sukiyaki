@@ -1,6 +1,5 @@
-const $      = require('jquery');
-const marked = require('marked');
-const nl2br  = require('nl2br');
+const marked = require("marked");
+const nl2br  = require("nl2br");
 
 var utility = {
 	marked: marked,

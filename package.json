@@ -25,6 +25,7 @@
     "electron-connect-webpack-plugin": "^0.1.0",
     "electron-packager": "^7.0.3",
     "electron-prebuilt": "^1.2.1",
+    "eslint": "^3.0.1",
     "gulp": "^3.9.1",
     "gulp-jade": "^1.1.0",
     "gulp-notify": "^2.2.0",

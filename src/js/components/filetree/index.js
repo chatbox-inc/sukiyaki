@@ -36,7 +36,7 @@ const template = {
 
 	methods: {
 		newFile: function(name) {
-			if( this.stores.files.find((file) =>{ return file.name == ""; }) === undefined){
+			if( this.stores.files.find((file) =>{ return file.name == "newFile"; }) === undefined){
 				this.stores.files.map( (file) => {
 					file.active = false;
 					return file;
@@ -47,8 +47,8 @@ const template = {
 					active : true,
 					hide   : false
 				});
+				this.open("newFile");
 			}
-			this.open("newFile");
 		},
 
 		save: function() {

@@ -64,37 +64,4 @@
 		}
 
 	}
-
-	&.settings{
-		display: block;
-		pointer-events: all;
-
-		position: absolute;
-		left: 0;
-		top: 0;
-
-		z-index: 1000;
-
-		padding: 25px 20px 30px;
-
-		width: calc(100% - 40px);
-		height: calc(100vh - 55px);
-
-		color: #999;
-		background: #f5f5f5;
-
-		opacity: 1.0;
-
-		transition: all 0.2s ease-out;
-
-		&.settings-is-hidden{
-			left: 25px;
-			top: 25px;
-			pointer-events: none;
-
-			width: calc(100% - 90px);
-			height: calc(100vh - 105px);
-			opacity: 0.0;
-		}
-	}
 }
