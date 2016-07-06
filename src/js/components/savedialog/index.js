@@ -4,7 +4,7 @@ const template = {
 		return {
 			"stores" : require("../../stores/"),
 			"name"   : ""
-		}
+		};
 	},
 
 	created: function() {
@@ -25,7 +25,6 @@ const template = {
 
 		saveCheck: function(event) {
 			var action = require("../../services/action");
-			var path = require("path");
 
 			if(event.keyCode == 13){
 				if(this.name.indexOf(".md") == -1) this.name += ".md";
@@ -34,7 +33,7 @@ const template = {
 				this.stores.files.map( (file) => {
 					if(file.active){
 						target = file;
-						file.name = this.name
+						file.name = this.name;
 					}
 					return file;
 				});
