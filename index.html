@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="res/css/style.css">
-	<link rel="stylesheet" type="text/css" href="res/css/font-awesome.min.css">
-	<title>Markdown Editor</title>
-</head>
-<body id="app" v-on:keydown="hookKey">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="res/css/style.css">
+		<title>Markdown Editor</title>
+	</head>
+	<body id="app" v-on:keydown="hookKey">
 
-<navigation></navigation>
+		<navigation></navigation>
 
-<div class="wrapper">
+		<div class="wrapper">
+			<div class="page main">
+				<filetree></filetree>
 
-	<div class="page main">
-		<filetree></filetree>
+				<div class="main-wrap">
+					<editor></editor>
+					<preview></preview>
+					<togglepreview></togglepreview>
+				</div>
+			</div>
 
-		<div class="main-wrap">
-			<editor></editor>
-
-			<preview></preview>
-
-			<togglepreview></togglepreview>
+			<settings></settings>
+			<savedialog></savedialog>
 		</div>
-	</div>
 
-	<settings></settings>
-
-	<savedialog></savedialog>
-</div>
-
-<script src="res/js/bundle.js"></script>
-</body>
+		<script src="res/js/bundle.js"></script>
+	</body>
 </html>
