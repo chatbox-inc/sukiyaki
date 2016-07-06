@@ -17,4 +17,4 @@ new Vue({
 	}
 });
 
-require("electron-connect").client.create();
+// require("electron-connect").client.create();

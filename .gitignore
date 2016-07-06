@@ -1,5 +1,5 @@
 node_modules/
 /res/js/
 /res/css/
-
+/dist/
 .DS_Store
