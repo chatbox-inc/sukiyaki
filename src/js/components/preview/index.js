@@ -5,7 +5,7 @@ const template = {
 			file: require("../../stores/currentPreview"),
 			stores: require("../../stores/"),
 			status: "show"
-		}
+		};
 	},
 
 	created: function() {
