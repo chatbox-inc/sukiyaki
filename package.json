@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node_modules/.bin/electron .",
     "build": "electron-packager ./ editor --platform=darwin,win32 --arch=x64 --version=1.2.5 --out=./dist",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "lint": "eslint ./src"
   },
   "repository": {
     "type": "git",
