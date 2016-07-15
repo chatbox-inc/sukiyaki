@@ -125,7 +125,8 @@ const template = {
 		},
 
 		search: function (){
-			if(!this.stores.searchText){
+			console.log(this.searchText);
+			if(!this.searchText){
 				this.stores.files.map( (file) => {
 					file.hide = false;
 					return file;
@@ -134,7 +135,7 @@ const template = {
 			}
 
 			this.stores.files.map( (file) => {
-				file.hide = (file.name.indexOf(this.stores.searchText) != 0);
+				file.hide = (file.name.indexOf(this.searchText) != 0);
 				return file;
 			});
 		}
