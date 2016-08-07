@@ -1,24 +1,24 @@
 {
-  "name": "editor",
-  "version": "0.0.1-alpha",
+  "name": "Sukiyaki",
+  "version": "0.1.0",
   "description": "Markdown Editor",
   "main": "index.js",
   "scripts": {
     "start": "node_modules/.bin/electron .",
-    "build": "electron-packager ./ editor --platform=darwin,win32 --arch=x64 --version=1.2.5 --out=./dist",
+    "build": "rm -Rf ./dist;electron-packager ./ sukiyaki --platform=darwin,win32 --arch=x64 --version=1.2.5 --out=./dist",
     "webpack": "webpack",
     "lint": "eslint ./src"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chatbox-inc/esa.git"
+    "url": "git+https://github.com/chatbox-inc/sukiyaki.git"
   },
-  "author": "Potato4d (Hanatani Takuma)",
+  "author": "Potato4d",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chatbox-inc/esa/issues"
+    "url": "https://github.com/chatbox-inc/sukiyaki/issues"
   },
-  "homepage": "https://github.com/chatbox-inc/esa#readme",
+  "homepage": "https://github.com/chatbox-inc/sukiyaki#readme",
   "devDependencies": {
     "browser-sync": "^2.12.10",
     "css-loader": "^0.23.1",
@@ -52,7 +52,6 @@
     "byline": "^4.2.1",
     "electron": "^0.4.1",
     "nl2br": "0.0.3",
-    "underscore": "^1.8.3",
     "vue": "^1.0.24"
   }
 }
