@@ -1,5 +1,3 @@
-let config;
-
 if(! localStorage.config){
 	localStorage.config = JSON.stringify({
 		"indent_type"  : "tabs",

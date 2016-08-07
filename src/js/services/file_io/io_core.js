@@ -1,7 +1,7 @@
 const fs = require("fs");
 var io_core = {
 	getList: function (readDir) {
-		return new Promise( (resolve, reject) => {
+		return new Promise( (resolve) => {
 
 			Promise.resolve()
 			.then( () => {
@@ -11,7 +11,7 @@ var io_core = {
 				Promise.all(
 					fileList.map( (file) => {
 						return new Promise( (resolve, reject) => {
-							fs.readFile(require("path").join(readDir, file), 'utf8', (err, text) => {
+							fs.readFile(require("path").join(readDir, file), "utf8", (err, text) => {
 								if (err) reject(err);
 
 								resolve({
@@ -24,7 +24,7 @@ var io_core = {
 				).then( (files) => {
 					resolve(files);
 				});
-			})
+			});
 		});
 	},
 
@@ -45,9 +45,9 @@ var io_core = {
 				var fileList = [];
 
 				readFiles.filter( (file) =>{
-				    return /.*\.md$/.test(file); //絞り込み
+					return /.*\.md$/.test(file); //絞り込み
 				}).forEach( (file) =>{
-				    fileList.push(file);
+					fileList.push(file);
 				});
 
 				resolve(fileList);
