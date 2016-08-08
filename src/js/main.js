@@ -2,7 +2,7 @@ const Vue    = require("vue");
 const utility = require("./utility");
 
 require("./components");
-var action = require("./services/action");
+let action = require("./services/action");
 
 utility.init();
 

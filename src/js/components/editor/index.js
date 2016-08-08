@@ -10,8 +10,8 @@ const template = {
 
 	methods: {
 		preview: function (){
-			var target = null;
-			var content = "# " + this.file.title + "\n" + this.file.content;
+			let target = null;
+			let content = "# " + this.file.title + "\n" + this.file.content;
 
 			this.stores.files.map( (file) => {
 				if(file.active){
@@ -23,7 +23,7 @@ const template = {
 
 			target.content = "# " + this.file.title + "\n" + this.file.content;
 
-			var action = require("../../services/action");
+			let action = require("../../services/action");
 			action.preview(
 				this.file.title,
 				this.file.content

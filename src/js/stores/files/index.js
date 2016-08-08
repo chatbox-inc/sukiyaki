@@ -1,2 +1,2 @@
-var files = [];
+let files = [];
 module.exports = files;

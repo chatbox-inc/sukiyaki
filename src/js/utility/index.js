@@ -1,7 +1,7 @@
 const marked = require("marked");
 const nl2br  = require("nl2br");
 
-var utility = {
+let utility = {
 	marked: marked,
 	nl2br : nl2br,
 

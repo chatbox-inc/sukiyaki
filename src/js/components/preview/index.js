@@ -9,15 +9,15 @@ const template = {
 	},
 
 	created: function() {
-		var action = require("../../services/action");
+		let action = require("../../services/action");
 		action.preview = this.preview;
 		action.togglePreviewArea = this.toggle;
 	},
 
 	methods: {
 		preview: function(title, content) {
-			var utility = require("../../utility");
-			var md = utility.marked(content);
+			let utility = require("../../utility");
+			let md = utility.marked(content);
 			this.stores.currentPreview.title = title;
 			this.stores.currentPreview.content = md;
 		},

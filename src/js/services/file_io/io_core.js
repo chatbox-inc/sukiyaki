@@ -1,5 +1,5 @@
 const fs = require("fs");
-var io_core = {
+let io_core = {
 	getList: function (readDir) {
 		return new Promise( (resolve) => {
 
@@ -42,7 +42,7 @@ var io_core = {
 
 			fs.readdir(require("path").join(readDir, "."), (err, readFiles) =>{
 				if (err) reject(err);
-				var fileList = [];
+				let fileList = [];
 
 				readFiles.filter( (file) =>{
 					return /.*\.md$/.test(file); //絞り込み
