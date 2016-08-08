@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node_modules/.bin/electron .",
     "build": "rm -Rf ./dist;electron-packager ./ sukiyaki --platform=darwin,win32 --arch=x64 --version=1.2.5 --out=./dist",
+	"watch": "gulp",
     "webpack": "webpack",
     "lint": "eslint ./src --fix"
   },
