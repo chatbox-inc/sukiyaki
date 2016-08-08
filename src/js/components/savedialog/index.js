@@ -8,7 +8,7 @@ const template = {
 	},
 
 	created: function() {
-		var action = require("../../services/action");
+		let action = require("../../services/action");
 		action.showSaveDialog = this.show;
 		action.hideSaveDialog = this.hide;
 		this.hide();
@@ -24,11 +24,11 @@ const template = {
 		},
 
 		saveCheck: function(event) {
-			var action = require("../../services/action");
+			let action = require("../../services/action");
 
 			if(event.keyCode == 13){
 				if(this.name.indexOf(".md") == -1) this.name += ".md";
-				var target;
+				let target;
 
 				this.stores.files.map( (file) => {
 					if(file.active){

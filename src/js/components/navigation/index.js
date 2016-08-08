@@ -2,12 +2,12 @@ const template = {
 	template: require("./index.html"),
 	methods: {
 		newFile: function() {
-			var action = require("../../services/action");
+			let action = require("../../services/action");
 			action.newFile("newFile");
 		},
 
 		toggleFileList: function() {
-			var $ = require("jquery");
+			let $ = require("jquery");
 			if($(".button-settings").hasClass("active")){
 				$(".button-file-list").addClass("active");
 				$(".button-settings").removeClass("active");
@@ -21,7 +21,7 @@ const template = {
 		},
 
 		toggleSettings: function() {
-			var $ = require("jquery");
+			let $ = require("jquery");
 			$(".settings").toggleClass("settings-is-hidden");
 			$(".button-file-list").removeClass("active");
 			$(".button-settings").toggleClass("active");

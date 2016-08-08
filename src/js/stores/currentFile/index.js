@@ -1,4 +1,4 @@
-var currentFile = {
+let currentFile = {
 	name: "",
 	title: "",
 	content: ""

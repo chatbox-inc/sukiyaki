@@ -10,7 +10,7 @@ const template = {
 	},
 
 	created: function() {
-		var action = require("../../services/action");
+		let action = require("../../services/action");
 		action.newFile = this.newFile;
 		action.openFile = this.open;
 		action.save = this.save;
@@ -51,8 +51,8 @@ const template = {
 		},
 
 		save: function() {
-			var target = null;
-			var action = require("../../services/action");
+			let target = null;
+			let action = require("../../services/action");
 
 			this.stores.files.map( (file) => {
 				if(file.active){
@@ -83,14 +83,14 @@ const template = {
 		},
 
 		open: function(e) {
-			var action = require("../../services/action");
+			let action = require("../../services/action");
 
-			var name = e;
+			let name = e;
 			if(typeof(event) == "object" ){
 				name = event.target.dataset.filename;
 			}
 
-			var target = this.stores.files.map( (file) => {
+			let target = this.stores.files.map( (file) => {
 				file.active = (file.name == name);
 				return file;
 			})
@@ -98,10 +98,10 @@ const template = {
 				return file.name == name;
 			});
 
-			var text    = target.content.replace(/\r\n|\r/g, "\n");
-			var raw_content = text.split("\n");
-			var title   = raw_content[0].replace("# ", "");
-			var content = "";
+			let text    = target.content.replace(/\r\n|\r/g, "\n");
+			let raw_content = text.split("\n");
+			let title   = raw_content[0].replace("# ", "");
+			let content = "";
 
 			raw_content.shift();
 

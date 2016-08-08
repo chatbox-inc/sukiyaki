@@ -7,7 +7,7 @@
     "start": "node_modules/.bin/electron .",
     "build": "rm -Rf ./dist;electron-packager ./ sukiyaki --platform=darwin,win32 --arch=x64 --version=1.2.5 --out=./dist",
     "webpack": "webpack",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src --fix"
   },
   "repository": {
     "type": "git",

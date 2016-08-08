@@ -1,4 +1,4 @@
-var currentPreview = {
+let currentPreview = {
 	title: "",
 	content: ""
 };

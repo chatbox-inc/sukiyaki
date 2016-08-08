@@ -12,7 +12,7 @@ const template = {
 
 	methods: {
 		toggle: function() {
-			var action = require("../../services/action");
+			let action = require("../../services/action");
 			this.status = (this.status == "show" ? "hide" : "show");
 			action.togglePreviewArea();
 		}
