@@ -6,9 +6,10 @@
   "scripts": {
     "start": "gulp",
     "packaging": "rm -Rf ./dist;electron-packager ./ sukiyaki --platform=darwin,win32 --arch=x64 --version=1.2.5 --out=./dist",
-    "build": "webpack",
-	"e": "electron .",
-    "lint": "eslint ./src --fix"
+    "build": "webpack;gulp sass",
+	"lint": "eslint ./src",
+	"lint-fix": "eslint ./src --fix",
+    "lint-check": "eslint ./src;exit 0;"
   },
   "repository": {
     "type": "git",
