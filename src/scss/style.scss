@@ -1,11 +1,123 @@
 @charset "utf-8";
 
 @import "github-markdown.scss";
+@font-face {
+    font-family: 'Source Han Code JP';
+    src: url('../fonts/SourceHanCodeJP-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+	font-family: 'Source Han Code JP';
+	src: url('../fonts/SourceHanCodeJP-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
 
-@import "foundation/_variables.scss";
-@import "foundation/_base.scss";
+html, body{
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	-webkit-font-smoothing: antialiased;
+	font-family: "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN",  "游ゴシック", YuGothic, "メイリオ", Meiryo, sans-serif;
+}
 
-@import "layout/*";
-@import "object/*";
+body{
+	display: flex;
+}
+
+ul, ol{
+	margin: 0;
+	padding: 0;
+}
+
+h1,h2,h3,h4,h5,h6{
+	padding: 0;
+	margin: 0;
+	font-weight: normal;
+}
+
+
+input, textarea{
+	font-family: 'Source Han Code JP';
+}
+
+
+table{
+    th, td{
+        font-weight: normal;
+        text-align: left;
+        padding: 10px 0;
+    }
+}
+
+.page{
+	&.main{
+		width: 100%;
+		height: 100%;
+		display: flex;
+
+		.main-wrap{
+			width: calc(100% - 200px);
+			height: 100%;
+			display: flex;
+
+			&.is-full{
+				width: 100%;
+			}
+
+			.file-title-template{
+				font-size: 20px;
+				margin: 4px 10px 0;
+				padding: 10px 15px;
+
+				width: calc(100% - 50px);
+				background: transparent;
+				border:none;
+				border-bottom-width: 1px;
+				border-bottom-style: solid;
+				font-weight: normal;
+
+				outline: none;
+
+				height: 23px;
+
+			}
+
+			.file-title-input{
+				@extend .file-title-template;
+
+				background: #f0f0f0;
+
+				border-bottom-color: transparent;
+				border-radius: 4px 4px 0 0 / 4px 4px 0 0;
+			}
+
+			.file-title{
+				@extend .file-title-template;
+				outline: none;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+
+				border-bottom-color: #e5e5e5;
+			}
+
+			.editor-toggle-preview{
+				position: absolute;
+				right: 30px;
+				top:14px;
+				color: #999;
+			}
+
+			*::-webkit-scrollbar{
+				width:0;
+				display:none;
+			}
+		}
+	}
+}
 
 @import "font-awesome.scss";

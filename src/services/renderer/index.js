@@ -1,7 +1,7 @@
 const marked = require("marked");
 const nl2br  = require("nl2br");
 
-let utility = {
+let renderer = {
 	marked: marked,
 	nl2br : nl2br,
 
@@ -20,4 +20,4 @@ let utility = {
 };
 
 
-module.exports = utility;
+module.exports = renderer;
