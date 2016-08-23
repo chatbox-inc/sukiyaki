@@ -1,10 +1,10 @@
 <template lang="html">
 	<div class="editor">
 		<div class="editor-content-wrapper" v-show="(file.name != '' || file.content != '' || file.title != '')">
-			<input type="" name="" class="file-title-input" placeholder="タイトルを入力" v-model="file.title" v-on:keyup="preview">
+			<input type="" name="" class="file-title-input" placeholder="Type title here" v-model="file.title" v-on:keyup="preview">
 
 			<textarea
-				placeholder="Type here...."
+				placeholder="Type text here...."
 				v-bind:style="{ tabSize: config.indent_width }"
 				v-on:keyup="preview"
 				v-on:keydown="insertTab"
@@ -21,7 +21,7 @@
 					</ul>
 				</div>
 				<button type="button" class="scripts">Scripts: <span v-for="plugin in plugins"></span></button>
-				<button type="button" class="save" v-on:click="save"><i class="fa fa-save"></i> 保存</button>
+				<button type="button" class="save" v-on:click="save"><i class="fa fa-save"></i> Save</button>
 			</footer>
 		</div>
 	</div>
