@@ -34,7 +34,7 @@ const Sukiyaki = function(){
 		this.plugins.push({
 			name: name,
 			core: plugin,
-			active: false
+			active: (name == "io_core")
 		});
 	};
 };

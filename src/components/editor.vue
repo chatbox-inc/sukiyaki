@@ -16,7 +16,7 @@
 					<span class="popup-title">Execute Scripts on saved.</span>
 					<ul>
 						<li v-for="plugin in plugins">
-							<input type="checkbox" name="{{ plugin.name }}" id="plugin-select-{{ plugin.name }}" v-model="plugin.active">
+							<input type="checkbox" name="{{ plugin.name }}" id="plugin-select-{{ plugin.name }}" v-model="plugin.active" v-on:change="enablePlugin">
 							<label for="plugin-select-{{ plugin.name }}">{{ plugin.name }}</label>
 						</li>
 					</ul>
@@ -204,6 +204,10 @@ const template = {
 		save: function() {
 			let action = require("../services/action");
 			action.save();
+		},
+
+		enablePlugin: function(e) {
+			localStorage.plugins.active[e.target.name] = window.sukiyaki.plugin[e.target.name].active;
 		}
 	}
 };
