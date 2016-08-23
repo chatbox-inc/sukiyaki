@@ -12,7 +12,15 @@
 			></textarea>
 
 			<footer>
-				<button type="button" class="scripts">Scripts: io_core, WP-REST</button>
+				<div class="popup">
+					<span class="popup-title">Execute Scripts on saved.</span>
+					<ul>
+						<li v-for="plugin in plugins">
+							<input type="checkbox" name="name" value=""> {{ plugin.name }}
+						</li>
+					</ul>
+				</div>
+				<button type="button" class="scripts">Scripts: <span v-for="plugin in plugins"></span></button>
 				<button type="button" class="save" v-on:click="save"><i class="fa fa-save"></i> 保存</button>
 			</footer>
 		</div>
@@ -20,6 +28,10 @@
 </template>
 
 <style lang="scss" scoped>
+ul{
+	list-style: none;
+}
+
 .editor{
 	flex-grow:1;
 	width: 50%;
@@ -57,6 +69,7 @@ footer{
 	margin: 0 10px;
 	display: flex;
 	justify-content: space-between;
+	position: relative;
 
 	button{
 		outline: none;
@@ -69,9 +82,9 @@ footer{
 		max-width: calc(100% - 90px);
 		height: 30px;
 
-		color: #0096FA;
+		color: #615952;
 		background: rgba(255,255,255,0.6);
-		border: solid 1px rgba(0,150,250,0.2);
+		border: solid 1px #615952;
 
 		appearance: none;
 
@@ -86,13 +99,38 @@ footer{
 		height: 30px;
 
 		color: #fff;
-		background: #0096FA;
+		background: #615952;
 		border: solid 1px rgba(0,0,0,0.05);
 
 		appearance: none;
 
 		text-align: center;
 		font-size: 14px;
+	}
+
+	.popup{
+		width: calc(80% - 20px);
+		max-width: calc(100% - 112px);
+		height: 180px;
+		padding: 10px;
+
+		position: absolute;
+
+		left: 0;
+		bottom: 29px;
+
+		color: #615952;
+		background: #FBFBFB;
+		border: solid 1px #615952;
+
+		font-size: 12px;
+
+		.popup-title{
+			font-size: 12px;
+			font-weight: bold;
+			display: inline-block;
+			margin: 0 0 5px;
+		}
 	}
 }
 </style>
@@ -101,9 +139,10 @@ footer{
 const template = {
 	data: () => {
 		return {
-			file   : require("../stores/currentFile"),
-			config : require("../stores/config"),
-			stores : require("../stores")
+			file    : require("../stores/currentFile"),
+			config  : require("../stores/config"),
+			stores  : require("../stores"),
+			plugins : window.sukiyaki.plugins
 		};
 	},
 

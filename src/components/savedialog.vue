@@ -88,7 +88,7 @@ const template = {
 			let action = require("../services/action");
 			if(this.name.indexOf(".md") == -1) this.name += ".md";
 
-			this.globalFiles.map( (file) => {
+			window.sukiyaki.files.map( (file) => {
 				if(file.active){
 					target = file;
 					file.name = this.name;
