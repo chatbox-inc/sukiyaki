@@ -1,10 +1,10 @@
 <template lang="html">
 	<div class="editor">
 		<div class="editor-content-wrapper" v-show="(file.name != '' || file.content != '' || file.title != '')">
-			<input type="" name="" class="file-title-input" placeholder="タイトルを入力" v-model="file.title" v-on:keyup="preview">
+			<input type="" name="" class="file-title-input" placeholder="Type title here" v-model="file.title" v-on:keyup="preview">
 
 			<textarea
-				placeholder="Type here...."
+				placeholder="Type text here...."
 				v-bind:style="{ tabSize: config.indent_width }"
 				v-on:keyup="preview"
 				v-on:keydown="insertTab"
@@ -12,14 +12,32 @@
 			></textarea>
 
 			<footer>
-				<button type="button" class="scripts">Scripts: io_core, WP-REST</button>
-				<button type="button" class="save" v-on:click="save"><i class="fa fa-save"></i> 保存</button>
+				<div class="popup" v-if="isShowPlugins">
+					<span class="popup-title">Execute Scripts on saved.</span>
+					<ul>
+						<li v-for="plugin in plugins">
+							<input type="checkbox" name="{{ plugin.name }}" id="plugin-select-{{ plugin.name }}" v-model="plugin.active" v-on:change="enablePlugin">
+							<label for="plugin-select-{{ plugin.name }}">{{ plugin.name }}</label>
+						</li>
+					</ul>
+				</div>
+				<button type="button" class="scripts" v-on:click="isShowPlugins = !isShowPlugins">
+					Scripts:
+					<ul v-for="plugin in plugins">
+						<li v-if="plugin.active">{{plugin.name}} </li>
+					</ul>
+				</button>
+				<button type="button" class="save" v-on:click="save"><i class="fa fa-save"></i> Save</button>
 			</footer>
 		</div>
 	</div>
 </template>
 
 <style lang="scss" scoped>
+ul{
+	list-style: none;
+}
+
 .editor{
 	flex-grow:1;
 	width: 50%;
@@ -57,6 +75,7 @@ footer{
 	margin: 0 10px;
 	display: flex;
 	justify-content: space-between;
+	position: relative;
 
 	button{
 		outline: none;
@@ -69,13 +88,17 @@ footer{
 		max-width: calc(100% - 90px);
 		height: 30px;
 
-		color: #0096FA;
+		color: #615952;
 		background: rgba(255,255,255,0.6);
-		border: solid 1px rgba(0,150,250,0.2);
+		border: solid 1px #615952;
 
 		appearance: none;
 
 		text-align: left;
+
+		ul, li{
+			display: inline;
+		}
 	}
 
 	button.save{
@@ -86,13 +109,38 @@ footer{
 		height: 30px;
 
 		color: #fff;
-		background: #0096FA;
+		background: #615952;
 		border: solid 1px rgba(0,0,0,0.05);
 
 		appearance: none;
 
 		text-align: center;
 		font-size: 14px;
+	}
+
+	.popup{
+		width: calc(80% - 20px);
+		max-width: calc(100% - 112px);
+		height: 180px;
+		padding: 10px;
+
+		position: absolute;
+
+		left: 0;
+		bottom: 29px;
+
+		color: #615952;
+		background: #FBFBFB;
+		border: solid 1px #615952;
+
+		font-size: 12px;
+
+		.popup-title{
+			font-size: 12px;
+			font-weight: bold;
+			display: inline-block;
+			margin: 0 0 5px;
+		}
 	}
 }
 </style>
@@ -101,9 +149,11 @@ footer{
 const template = {
 	data: () => {
 		return {
-			file   : require("../stores/currentFile"),
-			config : require("../stores/config"),
-			stores : require("../stores")
+			file    : require("../stores/currentFile"),
+			config  : require("../stores/config"),
+			stores  : require("../stores"),
+			plugins : window.sukiyaki.plugins,
+			isShowPlugins : false
 		};
 	},
 
@@ -154,6 +204,10 @@ const template = {
 		save: function() {
 			let action = require("../services/action");
 			action.save();
+		},
+
+		enablePlugin: function(e) {
+			localStorage.plugins.active[e.target.name] = window.sukiyaki.plugin[e.target.name].active;
 		}
 	}
 };

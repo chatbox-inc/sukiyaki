@@ -16,7 +16,7 @@ const Sukiyaki = function(){
 		console.log("Running method `save`");
 
 		this.plugins.map( (plugin) => {
-			plugin.core.save(dir, name, content);
+			if(plugin.active) plugin.core.save(dir, name, content);
 		});
 	};
 
@@ -33,7 +33,8 @@ const Sukiyaki = function(){
 
 		this.plugins.push({
 			name: name,
-			core: plugin
+			core: plugin,
+			active: (name == "io_core")
 		});
 	};
 };
