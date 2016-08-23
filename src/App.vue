@@ -47,6 +47,21 @@ module.exports = {
 		togglepreview
 	},
 
+	data: () => {
+		return {
+			config : require("./stores/config"),
+		};
+	},
+
+	created: function() {
+		[
+			"file:///Users/potato4d/.sukiyaki/file_io.js"
+		].map( (script) => {
+			const $ = require("jquery");
+			$("body").append("<script src='" + script + "' />");
+		})
+	},
+
 	methods: {
 		hookKey: function(event) {
 			let action = require("./services/action/");

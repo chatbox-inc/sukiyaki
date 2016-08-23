@@ -1,4 +1,5 @@
 node_modules/
+.webpack_trash/
 /res/js/
 /res/css/
 /dist/

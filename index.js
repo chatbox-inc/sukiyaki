@@ -6,7 +6,7 @@ const remote = electron.remote
 let mainWindow
 
 function createWindow () {
-	mainWindow = new BrowserWindow({width: 800, height: 450})
+	mainWindow = new BrowserWindow({width: 900, height: 600})
 	mainWindow.setMinimumSize(800, 450);
 
 	mainWindow.loadURL(`file://${__dirname}/index.html`)

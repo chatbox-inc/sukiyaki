@@ -1,14 +1,25 @@
 <template lang="html">
 	<div class="editor">
-		<div class="editor-content-wrapper">
+		<div class="editor-content-wrapper" v-show="(file.name != '' || file.content != '' || file.title != '')">
 			<input type="" name="" class="file-title-input" placeholder="タイトルを入力" v-model="file.title" v-on:keyup="preview">
 
-			<textarea placeholder="Type here...." class="editor-textarea" v-bind:style="{ tabSize: config.indent_width }" v-on:keyup="preview" v-on:keydown="insertTab" v-model="file.content"></textarea>
+			<textarea
+				placeholder="Type here...."
+				v-bind:style="{ tabSize: config.indent_width }"
+				v-on:keyup="preview"
+				v-on:keydown="insertTab"
+				v-model="file.content"
+			></textarea>
+
+			<footer>
+				<button type="button" class="scripts">Scripts: io_core, WP-REST</button>
+				<button type="button" class="save" v-on:click="save"><i class="fa fa-save"></i> 保存</button>
+			</footer>
 		</div>
 	</div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .editor{
 	flex-grow:1;
 	width: 50%;
@@ -18,29 +29,70 @@
 	&::-webkit-scrollbar{
 		display:none;
 	}
+}
 
-	.editor-content-wrapper{
-		height: calc(100% - 10px);
-		padding: 0;
-		position: relative;
-		overflow: hidden;
+.editor-content-wrapper{
+	height: calc(100% - 10px);
+	padding: 0;
+	position: relative;
+	overflow: hidden;
+}
 
+textarea{
+	width: calc(100% - 40px);
+	height: calc(100% - 128px);
 
+	margin: 10px;
+	padding: 10px;
+	border: none;
+	outline: none;
+	line-height: 1.6;
+	font-size: 12px;
+	background: #f0f0f0;
+	border-radius: 0 0 4px 4px / 0 0 4px 4px;
+	resize: none;
+}
 
-		.editor-textarea{
-			width: calc(100% - 40px);
-			height: calc(100% - 78px);
+footer{
+	margin: 0 10px;
+	display: flex;
+	justify-content: space-between;
 
-			margin: 10px;
-			padding: 10px;
-			border: none;
-			outline: none;
-			line-height: 1.6;
-			font-size: 12px;
-			background: #f0f0f0;
-			border-radius: 0 0 4px 4px / 0 0 4px 4px;
-			resize: none;
-		}
+	button{
+		outline: none;
+		cursor: pointer;
+	}
+
+	button.scripts{
+		display: block;
+		width: 80%;
+		max-width: calc(100% - 90px);
+		height: 30px;
+
+		color: #0096FA;
+		background: rgba(255,255,255,0.6);
+		border: solid 1px rgba(0,150,250,0.2);
+
+		appearance: none;
+
+		text-align: left;
+	}
+
+	button.save{
+		display: block;
+		width: calc(20% - 10px);
+		min-width: 80px;
+
+		height: 30px;
+
+		color: #fff;
+		background: #0096FA;
+		border: solid 1px rgba(0,0,0,0.05);
+
+		appearance: none;
+
+		text-align: center;
+		font-size: 14px;
 	}
 }
 </style>
@@ -55,12 +107,16 @@ const template = {
 		};
 	},
 
+	created: function(){
+		console.log(this.file);
+	},
+
 	methods: {
 		preview: function (){
 			let target = null;
 			let content = "# " + this.file.title + "\n" + this.file.content;
 
-			this.stores.files.map( (file) => {
+			window.sukiyaki.files.map( (file) => {
 				if(file.active){
 					if(content != file.content) file.unsaved = true;
 					target = file;
@@ -93,6 +149,11 @@ const template = {
 
 			element.value = val.substr(0, position) + spacing + val.substr(position, val.length);
 			element.setSelectionRange(position + width, position + width);
+		},
+
+		save: function() {
+			let action = require("../services/action");
+			action.save();
 		}
 	}
 };
