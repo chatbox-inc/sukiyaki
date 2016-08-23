@@ -12,15 +12,21 @@
 			></textarea>
 
 			<footer>
-				<div class="popup">
+				<div class="popup" v-if="isShowPlugins">
 					<span class="popup-title">Execute Scripts on saved.</span>
 					<ul>
 						<li v-for="plugin in plugins">
-							<input type="checkbox" name="name" value=""> {{ plugin.name }}
+							<input type="checkbox" name="{{ plugin.name }}" id="plugin-select-{{ plugin.name }}" v-model="plugin.active">
+							<label for="plugin-select-{{ plugin.name }}">{{ plugin.name }}</label>
 						</li>
 					</ul>
 				</div>
-				<button type="button" class="scripts">Scripts: <span v-for="plugin in plugins"></span></button>
+				<button type="button" class="scripts" v-on:click="isShowPlugins = !isShowPlugins">
+					Scripts:
+					<ul v-for="plugin in plugins">
+						<li v-if="plugin.active">{{plugin.name}} </li>
+					</ul>
+				</button>
 				<button type="button" class="save" v-on:click="save"><i class="fa fa-save"></i> Save</button>
 			</footer>
 		</div>
@@ -89,6 +95,10 @@ footer{
 		appearance: none;
 
 		text-align: left;
+
+		ul, li{
+			display: inline;
+		}
 	}
 
 	button.save{
@@ -142,7 +152,8 @@ const template = {
 			file    : require("../stores/currentFile"),
 			config  : require("../stores/config"),
 			stores  : require("../stores"),
-			plugins : window.sukiyaki.plugins
+			plugins : window.sukiyaki.plugins,
+			isShowPlugins : false
 		};
 	},
 
