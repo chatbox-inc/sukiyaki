@@ -6,6 +6,8 @@ const sukiyakiPass = path.join(process.env.HOME || process.env.USERPROFILE, ".su
 const Sukiyaki = require("./sukiyaki");
 window.sukiyaki = new Sukiyaki();
 
+if(!localStorage.loadPlugin) localStorage.loadPlugin = "io_core";
+
 Promise.resolve()
 .then( () => {
 	return new Promise( (resolve, reject) => {

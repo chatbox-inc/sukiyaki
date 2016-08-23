@@ -1,14 +1,15 @@
 const Sukiyaki = function(){
 	this.plugins = [];
-	this.usePluginIfStartLoad = "io_core";
+	this.usePluginIfStartLoad = localStorage.loadPlugin;
 	this.files = [];
 
 	this.get = () => {
 		console.log("Running method `get`");
 
 		this.plugins.map( (plugin) => {
+			let config = require("./stores/config");
 			if(plugin.name !== this.usePluginIfStartLoad) return;
-			plugin.core.get();
+			plugin.core.get(config.root_dir);
 		});
 	};
 

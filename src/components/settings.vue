@@ -29,7 +29,7 @@
 				<tr>
 					<th>フックスクリプト</th>
 					<td>
-						<select id="hook-scripts" name="hook-scripts" v-model="selected" multiple>
+						<select id="hook-scripts" name="hook-scripts" v-model="activePlugin" multiple>
 							<option v-for="plugin in plugins" v-bind:value="plugin.name">
 								{{ plugin.name }}
 							</option>
@@ -112,7 +112,8 @@ const template = {
 			indent_width: "",
 			root_dir: "",
 			config: require("../stores/config"),
-			plugins:  window.sukiyaki.plugins
+			plugins:  window.sukiyaki.plugins,
+			activePlugin: localStorage.loadPlugin
 		};
 	},
 

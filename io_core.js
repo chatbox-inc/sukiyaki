@@ -4,9 +4,8 @@
 	const io_core = function() {
 
 		this.get = (path) => {
-			console.log("test");
 			this
-			.getList("/Users/potato4d/Documents/")
+			.getList(path)
 			.then( (getFiles) => {
 				getFiles.map( (file) => {
 					window.sukiyaki.files.push({
