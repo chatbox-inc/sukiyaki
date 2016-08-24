@@ -123,6 +123,13 @@ const template = {
 		this.root_dir = this.config.root_dir;
 	},
 
+	watch: {
+		"activePlugin": function() {
+			if(this.activePlugin == localStorage.loadPlugin) return;
+			localStorage.loadPlugin = this.activePlugin;
+		}
+	},
+
 	methods: {
 		changeIndent: function() {
 			let tempLocal = JSON.parse(localStorage.config);

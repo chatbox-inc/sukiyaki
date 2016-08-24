@@ -57,9 +57,8 @@ module.exports = {
 		const fs = require("fs");
 		const path = require("path");
 		const root = path.join(process.env[process.platform == "win32" ? "USERPROFILE" : "HOME"], ".sukiyaki");
-
 		const files = fs.readdirSync(root);
-		var fileList = [];
+		let fileList = [];
 
 		files.filter(function(file){
 			return fs.statSync(path.join(root, file)).isFile() && /.*\.js$/.test(file);
@@ -69,9 +68,8 @@ module.exports = {
 
 		fileList.map( (script) => {
 			const $ = require("jquery");
-			$("body").append("<script src='file://" + path.join(root, script) + "' />");
+			$("body").append("<script src=\"file:\/\/" + path.join(root, script) + "\" />");
 		});
-
 	},
 
 	methods: {

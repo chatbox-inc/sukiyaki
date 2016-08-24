@@ -31,11 +31,13 @@ const Sukiyaki = function(){
 
 	this.register = (name, plugin) => {
 		console.log(`register plugin "${name}"`);
+		const pluginConfig = JSON.parse(localStorage.plugins);
+		const isActive = (pluginConfig.find( (p) => {return p.name == name;}) || {active:false}).active;
 
 		this.plugins.push({
 			name: name,
 			core: plugin,
-			active: (name == "io_core")
+			active: isActive
 		});
 	};
 };

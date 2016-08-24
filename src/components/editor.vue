@@ -207,7 +207,16 @@ const template = {
 		},
 
 		enablePlugin: function(e) {
-			localStorage.plugins.active[e.target.name] = window.sukiyaki.plugin[e.target.name].active;
+			const plugin = window.sukiyaki.plugins.find( (plugin) => {
+				return plugin.name == e.target.name;
+			});
+			
+			localStorage.plugins = JSON.stringify(window.sukiyaki.plugins.map( (plugin) => {
+				return {
+					name: plugin.name,
+					active: plugin.active
+				}
+			}));
 		}
 	}
 };

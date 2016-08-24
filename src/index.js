@@ -3,9 +3,10 @@ const App = require("./app.vue");
 const fs  = require("fs");
 const path = require("path");
 const sukiyakiPass = path.join(process.env.HOME || process.env.USERPROFILE, ".sukiyaki");
-const Sukiyaki = require("./sukiyaki");
+const Sukiyaki  = require("./sukiyaki");
 window.sukiyaki = new Sukiyaki();
 
+if(!localStorage.plugins) localStorage.plugins = JSON.stringify([{name:"io_core",active:true}]);
 if(!localStorage.loadPlugin) localStorage.loadPlugin = "io_core";
 
 Promise.resolve()
