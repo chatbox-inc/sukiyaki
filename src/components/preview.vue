@@ -56,8 +56,19 @@ const template = {
 
 	methods: {
 		preview: function(title, content) {
-			let renderer = require("../services/renderer");
-			let md = renderer.marked(content);
+			let marked = require("marked");
+			marked.setOptions({
+				renderer: new marked.Renderer(),
+				gfm: true,
+				tables: true,
+				breaks: false,
+				pedantic: false,
+				sanitize: true,
+				smartLists: true,
+				smartypants: false
+			});
+
+			let md = marked(content);
 			this.stores.currentPreview.title = title;
 			this.stores.currentPreview.content = md;
 		},
