@@ -126,10 +126,10 @@
 const template = {
 	data: () => {
 		return {
-			searchText : "",
+			searchText           : "",
 			stores               : require("../stores"),
 			files                : require("../stores/files"),
-			is_ended_constructor : false
+			globalFiles          : window.sukiyaki.files
 		};
 	},
 
@@ -140,31 +140,23 @@ const template = {
 		action.save = this.save;
 		action.writeFile = this.writeFile;
 
-		require("../services/file_io")
-		.getList(this.stores.config.root_dir)
-		.then( (getFiles) => {
-			getFiles.map( (file) => {
-				this.stores.files.push({
-					name    : file.name,
-					content : file.content,
-					active  : false,
-					hide    : false,
-					unsaved : false
-				});
-			});
-		});
+		window.sukiyaki.get();
+	},
 
-		this.newFile("newFile");
+	watch: {
+		"globalFiles": function (data, OldData){
+			this.files = data;
+		}
 	},
 
 	methods: {
 		newFile: function(name) {
-			if( this.stores.files.find((file) =>{ return file.name == "newFile"; }) === undefined){
-				this.stores.files.map( (file) => {
+			if( this.globalFiles.find((file) =>{ return file.name == "newFile"; }) === undefined){
+				this.globalFiles.map( (file) => {
 					file.active = false;
 					return file;
 				});
-				this.stores.files.unshift({
+				this.globalFiles.unshift({
 					name   : name,
 					content: "",
 					active : true,
@@ -178,7 +170,7 @@ const template = {
 			let target = null;
 			let action = require("../services/action");
 
-			this.stores.files.map( (file) => {
+			this.globalFiles.map( (file) => {
 				if(file.active){
 					file.unsaved = false;
 					target = file;
@@ -191,30 +183,36 @@ const template = {
 				return;
 			}
 
-			target = this.stores.files.find( (file) => {
+			target = this.globalFiles.find( (file) => {
 				return file.active;
 			});
-			this.writeFile(this.stores.config.root_dir, this.stores.currentFile.name, target.content);
+
+			console.log(target);
+
+			this.writeFile(
+				this.stores.config.root_dir,
+				this.stores.currentFile.name,
+				target.content
+			);
 		},
 
-		writeFile: function(dir, name, content) {
-
-			require("../services/file_io")
-			.save(dir, name, content)
-			.catch( (err) => {
-				alert("エラーが発生しました。\n" + err);
-			});
+		writeFile: function(dir, name, content){
+			window.sukiyaki.save(
+				dir,
+				name,
+				content
+			);
 		},
 
 		open: function(e) {
 			let action = require("../services/action");
 
 			let name = e;
-			if(typeof(event) == "object" ){
+			if(typeof(e) == "object" ){
 				name = event.target.dataset.filename;
 			}
 
-			let target = this.stores.files.map( (file) => {
+			let target = this.globalFiles.map( (file) => {
 				file.active = (file.name == name);
 				return file;
 			})
@@ -237,10 +235,6 @@ const template = {
 			this.stores.currentFile.title = title;
 			this.stores.currentFile.content = content;
 
-			if(this.is_ended_constructor === false){
-				this.is_ended_constructor = true;
-				return;
-			}
 			action.preview(
 				title,
 				content,
@@ -251,14 +245,14 @@ const template = {
 		search: function (){
 			console.log(this.searchText);
 			if(!this.searchText){
-				this.stores.files.map( (file) => {
+				this.globalFiles.map( (file) => {
 					file.hide = false;
 					return file;
 				});
 				return;
 			}
 
-			this.stores.files.map( (file) => {
+			this.globalFiles.map( (file) => {
 				file.hide = (file.name.indexOf(this.searchText) != 0);
 				return file;
 			});

@@ -1,13 +1,14 @@
 const webpack = require("webpack");
-var webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
+const webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
 
-
-var config = {
+const config = {
 
 	entry: "./src/index.js",
 	output: {
 		path: __dirname,
-		filename: "./res/js/bundle.js"
+		filename: "./res/js/bundle.js",
+		hotUpdateChunkFilename: "./.webpack_trash/[hash].js",
+		hotUpdateMainFilename: "./.webpack_trash/[hash].json"
 	},
 
 	module: {

@@ -59,8 +59,9 @@
 const template = {
 	data: () => {
 		return {
-			"stores" : require("../stores/"),
-			"name"   : ""
+			"stores"     : require("../stores/"),
+			"name"       : "",
+			"globalFiles": window.sukiyaki.files
 		};
 	},
 
@@ -81,24 +82,23 @@ const template = {
 		},
 
 		saveCheck: function(event) {
+			if(event.keyCode != 13) return;
+
+			let target;
 			let action = require("../services/action");
+			if(this.name.indexOf(".md") == -1) this.name += ".md";
 
-			if(event.keyCode == 13){
-				if(this.name.indexOf(".md") == -1) this.name += ".md";
-				let target;
-
-				this.stores.files.map( (file) => {
-					if(file.active){
-						target = file;
-						file.name = this.name;
-					}
-					return file;
-				});
-				action.writeFile(this.stores.config.root_dir, this.name, target.content);
-				this.stores.currentFile.name = this.name;
-				this.stores.saveDialog = "hide";
-				this.name = "";
-			}
+			window.sukiyaki.files.map( (file) => {
+				if(file.active){
+					target = file;
+					file.name = this.name;
+				}
+				return file;
+			});
+			action.writeFile(this.stores.config.root_dir, this.name, target.content);
+			this.stores.currentFile.name = this.name;
+			this.stores.saveDialog = "hide";
+			this.name = "";
 		}
 	}
 };
