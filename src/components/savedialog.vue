@@ -82,7 +82,7 @@ const template = {
 		},
 
 		saveCheck: function(event) {
-			if(event.keyCode != 13) return;
+			if(event.keyCode != 13 || this.name == "") return;
 
 			let target;
 			let action = require("../services/action");
