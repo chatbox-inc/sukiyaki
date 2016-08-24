@@ -27,9 +27,9 @@
 				</tr>
 
 				<tr>
-					<th>フックスクリプト</th>
+					<th>ファイル読み込みに使うプラグイン</th>
 					<td>
-						<select id="hook-scripts" name="hook-scripts" v-model="activePlugin" multiple>
+						<select id="hook-scripts" name="hook-scripts" v-model="activePlugin">
 							<option v-for="plugin in plugins" v-bind:value="plugin.name">
 								{{ plugin.name }}
 							</option>
@@ -87,7 +87,8 @@
 		margin: 0 0 20px;
 	}
 
-	.browser-indent{
+	.browser-indent,
+	select[id="hook-scripts"]{
 	    -webkit-appearance: none;
 	    width: auto;
 	    padding: 5px 20px 5px 5px;
@@ -95,11 +96,6 @@
 		background: linear-gradient(#F5F5F5, #E2E2E2);
 		position: relative;
 		outline: #0000ff;
-	}
-
-	select[id="hook-scripts"]{
-		width: 285px;
-		outline: none;
 	}
 }
 </style>
