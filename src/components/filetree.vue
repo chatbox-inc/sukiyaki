@@ -227,8 +227,8 @@ const template = {
 
 			raw_content.shift();
 
-			raw_content.forEach( (line) => {
-				content += line + "\n";
+			raw_content.forEach( (line, index) => {
+				if(index != raw_content.length - 1) content += line + "\n";
 			});
 
 			this.stores.currentFile.name = target.name;
