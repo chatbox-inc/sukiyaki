@@ -141,6 +141,7 @@ const template = {
 		action.writeFile = this.writeFile;
 
 		window.sukiyaki.get();
+		setInterval(() => {console.log(this.files)}, 1000);
 	},
 
 	watch: {
@@ -156,11 +157,12 @@ const template = {
 					file.active = false;
 					return file;
 				});
-				this.globalFiles.unshift({
-					name   : name,
+				window.sukiyaki.files.unshift({
+					name   : "newFile",
 					content: "",
 					active : true,
-					hide   : false
+					hide   : false,
+					unsaved: false
 				});
 				this.open("newFile");
 			}
