@@ -4,10 +4,11 @@
   "description": "Markdown Editor",
   "main": "index.js",
   "scripts": {
-    "start": "run-p start:electron watch",
+    "start": "run-p sass start:electron watch",
     "start:electron": "electron .",
     "watch": "webpack --watch",
     "build": "webpack",
+	"sass": "node-sass src/scss/style.scss res/css/style.css",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
     "lint:check": "eslint ./src;exit 0;",
