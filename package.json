@@ -8,10 +8,10 @@
     "start:electron": "electron .",
     "watch": "webpack --watch",
     "build": "webpack",
-	"sass": "node-sass src/scss/style.scss res/css/style.css",
-    "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix",
-    "lint:check": "eslint ./src;exit 0;",
+    "sass": "node-sass src/scss/style.scss res/css/style.css",
+    "lint": "eslint ./src --ext=js,vue",
+    "lint:fix": "eslint ./src --fix --ext=js,vue",
+    "lint:check": "eslint ./src --ext=js,vue;exit 0;",
     "release": "rm -Rf ./dist;electron-packager ./ sukiyaki --platform=darwin,win32 --arch=x64 --version=1.2.5 --out=./dist"
   },
   "repository": {
@@ -37,6 +37,7 @@
     "electron-prebuilt": "^1.2.1",
     "eslint": "^3.0.1",
     "eslint-loader": "^1.5.0",
+    "eslint-plugin-vue": "^0.1.1",
     "marked": "^0.3.5",
     "node-sass": "^3.8.0",
     "npm-run-all": "^3.0.0",

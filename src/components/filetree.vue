@@ -141,17 +141,17 @@ const template = {
 		action.writeFile = this.writeFile;
 
 		window.sukiyaki.get();
-		setInterval(() => {console.log(this.files)}, 1000);
+		setInterval(() => {console.log(this.files);}, 1000);
 	},
 
 	watch: {
-		"globalFiles": function (data, OldData){
+		"globalFiles": function (data){
 			this.files = data;
 		}
 	},
 
 	methods: {
-		newFile: function(name) {
+		newFile: function() {
 			if( this.globalFiles.find((file) =>{ return file.name == "newFile"; }) === undefined){
 				this.globalFiles.map( (file) => {
 					file.active = false;

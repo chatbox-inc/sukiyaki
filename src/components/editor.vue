@@ -215,7 +215,7 @@ const template = {
 				return {
 					name: plugin.name,
 					active: plugin.active
-				}
+				};
 			}));
 		}
 	}

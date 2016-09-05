@@ -26,8 +26,6 @@
 </style>
 
 <script>
-let Vue = require("vue");
-
 let navigation    = require("./components/navigation.vue");
 let editor        = require("./components/editor.vue");
 let preview       = require("./components/preview.vue");

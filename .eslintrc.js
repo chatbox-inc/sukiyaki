@@ -25,5 +25,8 @@ module.exports = {
         ],
         "no-console": "off",
 		"no-var": "error"
-    }
+    },
+	"plugins": [
+		"vue"
+	]
 };
